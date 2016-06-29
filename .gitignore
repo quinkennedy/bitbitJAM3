@@ -1,0 +1,8 @@
+# ignore vim swap files
+*.swp
+
+# ignore compiled ROMs
+*.gb
+
+# ignore active vagrant sessions
+.vagrant

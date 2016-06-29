@@ -3,6 +3,7 @@ central repository for experiments, assets, and game dev for [bitbitJAM3: Red Ho
 
 * [Overview](#overview)
 * [Game](#game)
+* [Directory Structure](#directory-structure)
 * [Dev Setup](#dev-setup)
   - [Linux](#linux)
   - [OSX](#osx)
@@ -18,23 +19,45 @@ Undecided. Must incorporate theme of _Red Hot Princess Carnage_. Interests invol
 * [bytebeat][3] audio
 * changing dimensions/modes with color palette swaps
 
+## Directory Structure
+
+This repository is broken up into four main parts
+
+* [art/]() contains art assets (backgrounds, sprites, fonts) created for the game
+* [gbdk/]() is the GBDK included as a submodule
+* [prod/]() is the actual game
+* [proto/]() contains a series of tests and prototypes
+
+Other folders include
+
+* [tools/]() contains some utilities, mainly for producing art assets
+* [vagrant_files/]() contains Vagrant-specific scripts and configuration files
+
 ## Dev Setup
 ### Linux:
 
-* OS: Ubuntu 16.04
-* GBDK: [https://www.dropbox.com/s/gnrqkbydyxqasm0/gbdk-linux-kit64_1.0.tar.bz2?dl=0]()
-  - extract to _/media/data/appsubu/gbdk/_
-  - add `export GBDKDIR=/media/data/appsubu/gbdk/` to _~/.bashrc_
-  - change *line 12* of _gbdk/include/gb/hardware.h_
-    * from `#define __REG   extern volatile sfr UINT8`
-    * to `#define __REG   extern volatile sfr /*UINT8*/`
-  - change *line 41* of _gbdk/examples/gb/rpn.c_
-    * from `BYTE read_op()`
-    * to `BYTE read_op(char* s)`
-  - `cd /media/data/appubu/gbdk/examples/gb/`
-  - `make`
-* Emulator: [Mednafen][2]
-  - `sudo apt-get install -y mednafen`
+Most of the development occured on an Ubuntu 16.04 machine. I used Vagrant to create a development sandbox, which means this should work relatively painlessly on Windows or OSX as well.
+
+#### Dependencies
+
+* [VirtualBox](https://www.virtualbox.org/)
+* [Vagrant](https://www.vagrantup.com/)
+* [git](https://git-scm.com/)
+* [mednafen](http://mednafen.fobby.net/)
+
+#### Setup
+
+0. `git clone --recursive https://github.com/quinkennedy/bitbitJAM3.git`
+0. `cd bitbitJAM3`
+0. `vagrant up`
+  * This will update the Vagrant box with the necessary dependencies and compile the GBDK
+0. `vagrant ssh`
+
+#### Usage
+
+When you are logged into the Vagrant guest OS, you can run `make` from any project directory to build that project into a GameBoy ROM image.
+
+From your host OS you can run the GameBoy ROM image using `make run`.
 
 ### OSX
 
