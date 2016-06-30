@@ -48,6 +48,9 @@ void tile_sprite()
 {
   UBYTE s, i, j;
 
+  //update background palette
+  BGP_REG=bgPalettes[zHeight];
+
   s = herpesFrame << 1;
   set_sprite_tile(0, herpes_tiles[s]);
   set_sprite_tile(1, herpes_tiles[s+1]);
@@ -135,7 +138,8 @@ void handle_input()
   //every other frame
   //  good combination of responsive and controllable
   //if((time&0x01) == 0) {
-    if (i & J_A){// rise
+    if (i & J_A && zHeight != MAX_Z){// rise
+      zHeight++;
       for( j=0; j!=10; j++){
         eH[j]++;
         if (eH[j] == NBSFRAMES){
@@ -143,7 +147,8 @@ void handle_input()
         }
       }
       changedZ = true;
-    } else if (i & J_B){// dive
+    } else if (i & J_B && zHeight != 0){// dive
+      zHeight--;
       for( j = 0; j != 10; j++){
         if (eH[j] == 0){
           eH[j] = NBSFRAMES - 1;
@@ -164,7 +169,7 @@ void init_bg()
 {
   UBYTE i, j;
   SHOW_BKG;
-  BGP_REG = 0xE4U;
+  BGP_REG = bgPalettes[zHeight];
 
   /* Initialize the background */
   set_bkg_data(0xFC, 0x04, std_data);
@@ -201,6 +206,7 @@ void init_ship()
   //place ship in the center, don't move it any more!
   move_sprite(0, sposx.b.h, sposy.b.h);
   move_sprite(1, sposx.b.h+8, sposy.b.h);
+  zHeight = 2;
 }
 
 void init_enemy()
@@ -231,11 +237,10 @@ void main()
    * OBJ        = On
    * BG         = Off
    */
+  init_ship();
   init_bg();
   OBP0_REG = OBP1_REG = 0x34U;
 
-
-  init_ship();
   initrand(DIV_REG);
   init_enemy();
   tile_sprite();

@@ -8,6 +8,8 @@ fixed sposx, sposy; /* Sprite position (fixed point) */
 fixed sspx, sspy;   /* Sprite speed (fixed point) */
 fixed eX[10], eY[10];
 UINT8 eH[10];
+UINT8 zHeight;// (0,4)
+UINT8 bgPalettes[5] = {0x40U,0x90U,0xE4U,0xF9U,0xFEU};
 
 void fade();
 void scroll();
@@ -30,6 +32,8 @@ void handle_input();
 //diagonal is *0.71 in each direction
 #define ACTIVE_ACCEL_DIAG 0x0022
 #define MAX_SPEED 0x0300
+
+#define MAX_Z 4
 
 typedef UBYTE bool;
 #define true 1
