@@ -23,15 +23,15 @@ Undecided. Must incorporate theme of _Red Hot Princess Carnage_. Interests invol
 
 This repository is broken up into four main parts
 
-* [art/]() contains art assets (backgrounds, sprites, fonts) created for the game
-* [gbdk/]() is the GBDK included as a submodule
-* [prod/]() is the actual game
-* [proto/]() contains a series of tests and prototypes
+* [art/](art/) contains art assets (backgrounds, sprites, fonts) created for the game
+* [gbdk/](gbdk/) is the GBDK included as a submodule
+* [prod/](prod/) is the actual game
+* [proto/](proto/) contains a series of tests and prototypes
 
 Other folders include
 
-* [tools/]() contains some utilities, mainly for producing art assets
-* [vagrant_files/]() contains Vagrant-specific scripts and configuration files
+* [tools/](tools/) contains some utilities, mainly for producing art assets
+* [vagrant_files/](vagrant_files/) contains Vagrant-specific scripts and configuration files
 
 ## Dev Setup
 ### Linux:
@@ -64,6 +64,12 @@ From your host OS you can run the GameBoy ROM image using `make run`.
 ### Windows
 
 This was set up on Windows 10, the directions included with the original GBDK were sufficient to get it working.
+
+#### Dependencies
+
+* A GameBoy emulator
+  - [GBG](http://www.zophar.net/gb/bgb.html)
+  - [vba10](https://www.microsoft.com/en-us/store/apps/vba10/9nblggh2k04v)
 
 #### Setup
 
