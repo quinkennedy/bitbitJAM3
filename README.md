@@ -63,6 +63,24 @@ From your host OS you can run the GameBoy ROM image using `make run`.
 
 ### Windows
 
+This was set up on Windows 10, the directions included with the original GBDK were sufficient to get it working.
+
+#### Setup
+
+0. download _gbdk-2.95-3-win32.zip_ from the [sourceforge][4] site
+0. unzip it to a location you want to "install" it 
+  * for me that was _D:\appswinx\_ , the standard choice would be _"C:\Program Files (x86)\"_
+0. edit your system `Path` to include GBDK's _bin_ directory
+  * I get to it by opening a file explorer, right-clicking on _This PC_, selecting _Properties_, selecting the _Advanced Systems Settings_ link on the right, and clicking the _Environment Variables_ button near the bottom
+  * Once you have the _Environment Variables_ dialog open, you can edit an existing _User variable_ (if you have one named `Path`) or create a new _User variable_ named `Path`
+  * add the path to GBDK's _bin_ directory, so if you unzipped to _C:\_ it might be _C:\Program Files (x86)\gbdk\bin_
+  * 
+
+#### Usage
+
+There are not scripts for Windows yet, so you need to run `lcc -o rom.gb file.c` from a command prompt to compile. Where _rom.gb_ would be the name of the output GameBoy rom you want to create, and _file.c_ is the name of the C file to compile.
+
 [1]: http://bitbitjam.com/
 [2]: http://mednafen.fobby.net/
 [3]: http://greggman.com/downloads/examples/html5bytebeat/html5bytebeat.html
+[4]: https://sourceforge.net/projects/gbdk/files/gbdk-win32/2.95-3/
