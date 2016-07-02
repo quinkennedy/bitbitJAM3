@@ -10,10 +10,16 @@ Vagrant.configure(2) do |config|
   # For a complete reference, please see the online documentation at
   # https://docs.vagrantup.com.
 
+  config.vm.provider "virtualbox" do |vb|
+    vb.memory = 1536
+  end
+
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
   config.vm.box = "ubuntu/trusty64"
-  config.vm.provision :shell, path: "vagrant_files/vagrant-provision-dev.sh"
+  config.vm.provision :file, source: "vagrant_files/sample.vimrc", destination: ".vimrc"
+  config.vm.provision :shell, path: "vagrant_files/provision-dev.sh"
+  config.vm.provision :shell, path: "vagrant_files/install-vim-plugins.sh", privileged: false
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
