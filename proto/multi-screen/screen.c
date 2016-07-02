@@ -4,6 +4,7 @@
  */
 #include "screen.h"
 #include "startScreen.c"
+#include "gameScreen.c"
 
 void screen_update(){
 
@@ -41,6 +42,9 @@ void screen_setup(){
    * OBJ        = On
    * BG         = On
    */
+
+  //default to a standard 3-2-1-0 palette
+  BGP_REG = OBP0_REG = OBP1_REG = 0xE4U;
 
   // Setup all function arrays for switch-less logic
   screen_updates[START] = startScreen_update;

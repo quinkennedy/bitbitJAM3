@@ -25,6 +25,9 @@ void startScreen_enter(){
 }
 
 void startScreen_update(){
+  if (joypad() & J_START){
+    screen_data.state = GAME;
+  }
 }
 
 void startScreen_draw(){}
