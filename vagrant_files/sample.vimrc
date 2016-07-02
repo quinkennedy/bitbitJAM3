@@ -15,5 +15,6 @@ call vundle#end()
 filetype plugin indent on
 nnoremap <F5> :!make<cr>
 
+let g:ycm_extra_conf_globlist = ['/vagrant/**/*']
 set exrc
 set secure
