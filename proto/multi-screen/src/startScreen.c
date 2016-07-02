@@ -23,11 +23,19 @@ void startScreen_enter(){
     Her\n\
      Sovereign\n\
           Virus");
+  startScreen_data.showStart = 120;
 }
 
 void startScreen_update(){
   if (joypad() & J_START){
     screen_data.state = GAME;
+  } else {
+    if (startScreen_data.showStart != 0){
+      if (startScreen_data.showStart == 1){
+        printf("\n\n\npress START");
+      }
+      startScreen_data.showStart--;
+    }
   }
 }
 

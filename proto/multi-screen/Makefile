@@ -12,7 +12,7 @@ obj/%.o: src/%.c
 %.gb: obj/%.o $(O_FILES)
 	$(CC) -o $@ $<
 
-all: $(ROM)
+all: clean $(ROM)
 
 run:
 	mednafen $(ROM)

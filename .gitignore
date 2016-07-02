@@ -1,11 +1,10 @@
 # ignore vim swap files
 *.swp
 
-# ignore compiled ROMs
+# ignore compiled files
 *.gb
-
-# ignore object files
 *.o
+*.pyc
 
 # ignore active vagrant sessions
 .vagrant
