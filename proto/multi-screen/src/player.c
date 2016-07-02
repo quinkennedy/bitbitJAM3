@@ -3,7 +3,7 @@
  * Quin Kennedy, David Frankel, Vivek Vimal, Party Skeleton, 2016
  */
 
-#include "player.h"
+#include "include/player.h"
 #include "player-data.c"
 #include <gb/gb.h>
 #include "input.c"

@@ -3,7 +3,7 @@
  * Quin Kennedy, David Frankel, Vivek Vimal, Party Skeleton, 2016
  */
 
-#include "multi.h"
+#include "include/multi.h"
 #include "screen.c"
 
 void main(void){

@@ -2,7 +2,7 @@
  * screen.c
  * Quin Kennedy, David Frankel, Vivek Vimal, Party Skeleton, 2016
  */
-#include "screen.h"
+#include "include/screen.h"
 #include "startScreen.c"
 #include "gameScreen.c"
 

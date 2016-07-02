@@ -1,16 +1,16 @@
+CC=lcc
 ROM=multi.gb
-DEPS=multi.h\
- screen.c screen.h\
- startScreen.c startScreen.h\
- gameScreen.c gameScreen.h\
- player.c player.h\
- background.c background.h\
- input.c input.h\
- background-data.c\
- player-data.c
+C_FILES=$(wildcard src/*.c)
+O_FILES=$(addprefix obj/,$(notdir $(C_FILES:.c=.o)))
+H_FILES=$(wildcard src/include/*.h)
+LD_FLAGS=
+CC_FLAGS=
 
-%.gb: %.c $(DEPS)
-	lcc -o $@ $<
+obj/%.o: src/%.c
+	$(CC) -c -o $@ $<
+
+%.gb: obj/%.o $(O_FILES)
+	$(CC) -o $@ $<
 
 all: $(ROM)
 
@@ -18,4 +18,4 @@ run:
 	mednafen $(ROM)
 
 clean:
-	-rm -f *.gb *.o
+	-rm -rf *.gb *.o obj/*

@@ -3,7 +3,7 @@
  * Quin Kennedy, David Frankel, Vivek Vimal, Party Skeleton, 2016
  */
 
-#include "input.h"
+#include "include/input.h"
 #include <gb/gb.h>
 
 static void input_update(){

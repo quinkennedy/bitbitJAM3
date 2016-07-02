@@ -3,8 +3,9 @@
  * Quin Kennedy, David Frankel, Vivek Vimal, Party Skeleton, 2016
  */
 
-#include "background.h"
+#include "include/background.h"
 #include "background-data.c"
+#include <gb/gb.h>
 
 void background_init(){
   UBYTE i, j;

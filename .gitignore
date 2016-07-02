@@ -4,5 +4,8 @@
 # ignore compiled ROMs
 *.gb
 
+# ignore object files
+*.o
+
 # ignore active vagrant sessions
 .vagrant

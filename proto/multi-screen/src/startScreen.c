@@ -3,9 +3,10 @@
  * Quin Kennedy, David Frankel, Vivek Vimal, Party Skeleton, 2016
  */
 
-#include "startScreen.h"
+#include "include/startScreen.h"
 #include <stdio.h>
 #include <gb/font.h>
+#include "include/screen.h"
 
 void startScreen_enter(){
   font_t ibm_font;

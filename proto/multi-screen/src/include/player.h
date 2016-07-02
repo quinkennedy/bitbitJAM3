@@ -5,6 +5,8 @@
 #ifndef PLAYER
 #define PLAYER
 
+#include <types.h>
+
 typedef struct Position{
   fixed x;
   fixed y;

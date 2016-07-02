@@ -3,7 +3,7 @@
  * Quin Kennedy, David Frankel, Vivek Vimal, Party Skeleton, 2016
  */
 
-#include "gameScreen.h"
+#include "include/gameScreen.h"
 #include "player.c"
 #include "background.c"
 
