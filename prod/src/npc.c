@@ -24,13 +24,13 @@ void createNPC(UBYTE index, EntityType type){
   EntityData *npc = &(npc_data[index]);
   npc->type = type;
   //place at a random location off-screen
-  npc->position.x.b.h = ((UBYTE)rand()) % 80 + 160;//(160,239)
-  npc->position.y.b.h = ((UBYTE)rand()) % 96 + 144;//(144,239)
+  npc->position.x.b.h = ((UBYTE)rand()) % 80 + 168;//(168,247)
+  npc->position.y.b.h = ((UBYTE)rand()) % 96 + 160;//(160,255)
   //random height
   npc->position.z = ((UBYTE)rand()) % 5;//(0,4)
   //TEMP start with random speed
-  npc->speed.x.b.l = ((UBYTE)rand()) & 0xF;//(0,15)
-  npc->speed.y.b.l = ((UBYTE)rand()) & 0xF;//(0,15)
+  npc->speed.x.b.l = (((UBYTE)rand()) & 0xF) - 8;//(-8,7)
+  npc->speed.y.b.l = (((UBYTE)rand()) & 0xF) - 8;//(-8,7)
   //initialize sprite tile reference register
   set_sprite_tile(spriteIndex, *entity_tiles_ref[type]);
   set_sprite_tile(spriteIndex+1, (*entity_tiles_ref[type]) + 2);
@@ -44,7 +44,7 @@ void createNPC(UBYTE index, EntityType type){
 void npc_init(){
   UBYTE i;
   
-  for( i=0; i != MAX_NUM_NPC; i++){
+  for( i=0; i != 5/*MAX_NUM_NPC*/; i++){
     switch(((UBYTE)rand()) % 3){
       case 0:
         createNPC(i, IMMUNE);
@@ -62,7 +62,7 @@ void npc_init(){
 void npc_update(){
   UBYTE i, j;
   EntityData *npc;
-  for( i=0, j=1; i != MAX_NUM_NPC; i++, j+=2){
+  for( i=0, j=1; i != 5/*MAX_NUM_NPC*/; i++, j+=2){
     npc = &(npc_data[i]);
     //move based on the player's speed
     npc->position.x.w = 

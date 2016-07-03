@@ -40,7 +40,7 @@ void moveToward(DPAD_DIR direction, EntityData *data){
 
 void slowDown(EntityData *data){
   if (data->speed.x.w != 0){
-    if ((WORD)data->speed.x.w > 0){
+    if (((WORD)data->speed.x.w) > 0){
       if (data->speed.x.w < data->speed.decelerate.w){
         data->speed.x.w = 0;
       } else {
@@ -51,7 +51,7 @@ void slowDown(EntityData *data){
     }
   }
   if (data->speed.y.w != 0){
-    if ((WORD)data->speed.y.w > 0){
+    if (((WORD)data->speed.y.w) > 0){
       if (data->speed.y.w < data->speed.decelerate.w){
         data->speed.y.w = 0;
       } else {

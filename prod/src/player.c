@@ -15,9 +15,9 @@ void player_init(){
   //for now we are always a virus
   player_data.type = VIRUS;
   // set up variables
-  player_data.speed.straight.w = 0x0030;
-  player_data.speed.diagonal.w = 0x0022;
-  player_data.speed.decelerate.w = 0x0006;
+  player_data.speed.straight.w = 0x0010;
+  player_data.speed.diagonal.w = 0x0010;
+  player_data.speed.decelerate.w = 0x0004;
   // center player on screen
   player_data.position.x.w = 0x5000;
   player_data.position.y.w = 0x5000;
