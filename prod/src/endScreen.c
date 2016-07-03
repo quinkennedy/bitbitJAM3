@@ -2,6 +2,8 @@
  * endScreen.c
  * Quin Kennedy, David Frankel, Vivek Vimal, Party Skeleton, 2016
  */
+#ifndef END_SCREEN_C
+#define END_SCREEN_C
 
 #include "include/endScreen.h"
 #include <stdio.h>
@@ -40,3 +42,5 @@ void endScreen_update(){
 }
   
 void endScreen_draw(){}
+
+#endif

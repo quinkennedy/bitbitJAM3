@@ -2,6 +2,8 @@
  * player.c
  * Quin Kennedy, David Frankel, Vivek Vimal, Party Skeleton, 2016
  */
+#ifndef PLAYER_C
+#define PLAYER_C
 
 #include "include/player.h"
 #include "tiles/sprite-data.c"
@@ -18,6 +20,8 @@ void player_init(){
   player_data.speed.straight.w = 0x0010;
   player_data.speed.diagonal.w = 0x0010;
   player_data.speed.decelerate.w = 0x0004;
+  player_data.animMask = 1;//magic number
+  player_data.animFrame = 0;
   // center player on screen
   player_data.position.x.w = 0x5000;
   player_data.position.y.w = 0x5000;
@@ -39,4 +43,7 @@ void player_update(){
   else {
     slowDown(&player_data);
   }
+  animate(0, &player_data);
 }
+
+#endif

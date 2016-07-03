@@ -2,8 +2,8 @@
  * startScreen.h
  * Quin Kennedy, David Frankel, Vivek Vimal, Party Skeleton, 2016
  */
-#ifndef START_SCREEN
-#define START_SCREEN
+#ifndef START_SCREEN_H
+#define START_SCREEN_H
 
 #include <types.h>
 

@@ -2,8 +2,8 @@
  * entity.h
  * Quin Kennedy, David Frankel, Vivek Vimal, Party Skeleton, 2016
  */
-#ifndef ENTITY
-#define ENTITY
+#ifndef ENTITY_H
+#define ENTITY_H
 
 #include <types.h>
 #include "input.h"
@@ -32,13 +32,15 @@ typedef struct EntityData{
   Speed speed;
   EntityType type;
   UBYTE animMask;
+  UBYTE animFrame;
 } EntityData;
 
-UBYTE entity_anim_frames[4] = {8, 11, 10, 1};
-const unsigned char *entity_tiles_ref[4] = 
+UBYTE entity_anim_frames[4] = {8, 11, 10, 12};
+const unsigned char* entity_tiles_ref[4] = 
   {immunity_tiles, skin_tiles, neuron_tiles, virus_tiles};
 
 void moveToward(DPAD_DIR direction, EntityData *data);
 void slowDown(EntityData *data);
+void animate(UBYTE spriteIndex, EntityData *data);
 
 #endif

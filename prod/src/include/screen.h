@@ -2,8 +2,8 @@
  * screen.h
  * Quin Kennedy, David Frankel, Vivek Vimal, Party Skeleton, 2016
  */
-#ifndef SCREEN
-#define SCREEN
+#ifndef SCREEN_H
+#define SCREEN_H
 
 typedef enum ScreenState{
   START, DIALOG, GAME, END

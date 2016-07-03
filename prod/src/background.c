@@ -2,6 +2,8 @@
  * background.c
  * Quin Kennedy, David Frankel, Vivek Vimal, Party Skeleton, 2016
  */
+#ifndef BACKGROUND_C
+#define BACKGROUND_C
 
 #include "include/background.h"
 #include "tiles/background-data.c"
@@ -64,3 +66,5 @@ void background_update(){
   SCY_REG = background_data.position.y.b.h;
 //  BGP_REG = background_palettes[player_data.position.z];
 }
+
+#endif

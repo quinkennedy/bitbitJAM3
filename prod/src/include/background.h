@@ -2,8 +2,8 @@
  * background.h
  * Quin Kennedy, David Frankel, Vivek Vimal, Party Skeleton, 2016
  */
-#ifndef BACKGROUND
-#define BACKGROUND
+#ifndef BACKGROUND_H
+#define BACKGROUND_H
 
 #include "entity.h"
 

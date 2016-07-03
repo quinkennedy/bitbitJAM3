@@ -2,8 +2,8 @@
  * endScreen.h
  * Quin Kennedy, David Frankel, Vivek Vimal, Party Skeleton, 2016
  */
-#ifndef ENDSCREEN
-#define ENDSCREEN
+#ifndef ENDSCREEN_H
+#define ENDSCREEN_H
 
 #include <types.h>
 

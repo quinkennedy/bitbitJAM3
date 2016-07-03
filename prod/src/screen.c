@@ -2,6 +2,9 @@
  * screen.c
  * Quin Kennedy, David Frankel, Vivek Vimal, Party Skeleton, 2016
  */
+#ifndef SCREEN_C
+#define SCREEN_C
+
 #include "include/screen.h"
 #include <gb/gb.h>
 #include "startScreen.c"
@@ -72,3 +75,5 @@ void screen_setup(){
   DISPLAY_ON;
   enable_interrupts();
 }
+
+#endif

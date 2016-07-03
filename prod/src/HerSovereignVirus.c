@@ -2,6 +2,8 @@
  * HerSovereignVirus.c
  * Quin Kennedy, David Frankel, Vivek Vimal, Party Skeleton, 2016
  */
+#ifndef HER_SOVEREIGN_VIRUS_C
+#define HER_SOVEREIGN_VIRUS_C
 
 #include "include/HerSovereignVirus.h"
 #include "screen.c"
@@ -21,3 +23,4 @@ void setup(){
   screen_setup();
 }
 
+#endif

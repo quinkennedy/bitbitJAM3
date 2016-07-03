@@ -2,9 +2,8 @@
  * input.h
  * Quin Kennedy, David Frankel, Vivekanand Vimal, Party Skeleton, 2016
  */
-
-#ifndef INPUT
-#define INPUT
+#ifndef INPUT_H
+#define INPUT_H
 
 #include <types.h>
 

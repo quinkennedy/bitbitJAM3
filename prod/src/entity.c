@@ -2,8 +2,13 @@
  * entity.c
  * Quin Kennedy, David Frankel, Vivek Vimal, Party Skeleton, 2016
  */
+#ifndef ENTITY_C
+#define ENTITY_C
 
 #include "include/entity.h"
+#include <gb/gb.h>
+//for the tile sprite method
+#include "include/npc.h"
 
 void moveToward(DPAD_DIR direction, EntityData *data){
   switch(direction){
@@ -62,3 +67,18 @@ void slowDown(EntityData *data){
     }
   }
 }
+
+void animate(UBYTE spriteIndex, EntityData *data){
+  if ((sys_time & data->animMask) == 0){
+    data->animFrame++;
+    if (data->animFrame == entity_anim_frames[data->type]){
+      data->animFrame = 0;
+    }
+
+    tileSprite(spriteIndex, 
+               entity_tiles_ref[data->type][data->animFrame],
+               data->type);
+  }
+}
+
+#endif
