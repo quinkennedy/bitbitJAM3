@@ -13,6 +13,7 @@
 #include "entity.h"
 
 EntityData npc_data[MAX_NUM_NPC];
+UBYTE npc_counts[4];
 
 void npc_init();
 void npc_update();

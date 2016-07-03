@@ -18,7 +18,7 @@ void background_init(){
 
   /* Initialize the background */
   // load background tiles into VRAM
-  set_bkg_data(0x00, BACKGROUND_DATA_SIZE, background_sprite_data);
+  set_bkg_data(0x01, BACKGROUND_DATA_SIZE, background_sprite_data);
 
   background_data.speed.x.w = 0;
   background_data.speed.y.w = 0;
@@ -47,14 +47,14 @@ void background_init(){
 void background_update(){
   UWORD addBy;
   
-  addBy = player_data.speed.x.w >> 2;
+  addBy = player_data.speed.x.w >> 1;
   //if this is a negative number
   if (player_data.speed.x.b.h & 0x80){
     // pad the addBy number with 1's
     addBy = addBy | 0xC000;
   }
   background_data.position.x.w += addBy;
-  addBy = player_data.speed.y.w >> 2;
+  addBy = player_data.speed.y.w >> 1;
   //if this is a negative number
   if (player_data.speed.y.b.h & 0x80){
     // pad the addBy number with 1's

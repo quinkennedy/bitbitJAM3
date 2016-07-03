@@ -13,6 +13,8 @@
 void startScreen_enter(){
   font_t ibm_font;
 
+  HIDE_SPRITES;
+  BGP_REG = 0xE4U;
   //load the font we want to use
   font_init();
   ibm_font = font_load(font_ibm);
@@ -24,7 +26,8 @@ void startScreen_enter(){
   printf("\n\n\n\n\n\
     Her\n\
      Sovereign\n\
-          Virus");
+          Virus\
+\n\n\n\n\n\n\n\n\n\n");
   startScreen_data.showStart = 120;
 }
 
@@ -34,7 +37,8 @@ void startScreen_update(){
   } else {
     if (startScreen_data.showStart != 0){
       if (startScreen_data.showStart == 1){
-        printf("\n\n\npress START");
+        printf("\
+        press START");
       }
       startScreen_data.showStart--;
     }

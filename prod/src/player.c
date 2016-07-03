@@ -17,9 +17,9 @@ void player_init(){
   //for now we are always a virus
   player_data.type = VIRUS;
   // set up variables
-  player_data.speed.straight.w = 0x0010;
-  player_data.speed.diagonal.w = 0x0010;
-  player_data.speed.decelerate.w = 0x0004;
+  player_data.speed.straight.w = 0x0005;
+  player_data.speed.diagonal.w = 0x0003;
+  player_data.speed.decelerate.w = 0x0001;
   player_data.animMask = 1;//magic number
   player_data.animFrame = 0;
   player_data.visibility = FULL;
@@ -57,6 +57,24 @@ void player_update(){
     npc_playerChangedLayer();
   }
   animate(0, &player_data);
+}
+
+UBYTE player_checkCollision(EntityData *entity){
+  UBYTE player_hit_x, player_hit_y;
+  //if the entity is on the player's same level
+  //and not a VIRUS (virus doesn't hit virus)
+  if (player_data.position.z == entity->position.z &&
+      entity->type != VIRUS){
+    player_hit_x = player_data.position.x.b.h + 4;
+    player_hit_y = player_data.position.y.b.h + 4;
+    if (player_hit_x >= entity->position.x.b.h + 4 &&
+        player_hit_x <= entity->position.x.b.h + 12 &&
+        player_hit_y >= entity->position.y.b.h + 4 &&
+        player_hit_y <= entity->position.y.b.h + 12){
+      return 1;
+    }
+  }
+  return 0;
 }
 
 #endif

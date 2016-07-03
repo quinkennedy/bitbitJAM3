@@ -5,8 +5,9 @@
 #ifndef SCREEN_H
 #define SCREEN_H
 
+#define NUM_SCREENS 5
 typedef enum ScreenState{
-  START, DIALOG, GAME, END
+  START, DIALOG, GAME, WIN, LOSE
 } ScreenState;
 
 typedef struct ScreenData{
@@ -18,8 +19,8 @@ void screen_setup();
 void screen_update();
 void screen_draw();
 
-void (*screen_updates[4])();
-void (*screen_draws[4])();
-void (*screen_enters[4])();
+void (*screen_updates[NUM_SCREENS])();
+void (*screen_draws[NUM_SCREENS])();
+void (*screen_enters[NUM_SCREENS])();
 
 #endif

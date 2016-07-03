@@ -12,5 +12,6 @@ EntityData player_data;
 
 void player_init();
 void player_update();
+UBYTE player_checkCollision(EntityData *entity);
 
 #endif
