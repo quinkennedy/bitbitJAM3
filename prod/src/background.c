@@ -18,9 +18,6 @@ void background_init(){
   // load background tiles into VRAM
   set_bkg_data(0x00, BACKGROUND_DATA_SIZE, background_sprite_data);
 
-  background_data.speed.straight.w = player_data.speed.straight.w >> 2;
-  background_data.speed.diagonal.w = player_data.speed.diagonal.w >> 2;
-  background_data.speed.decelerate.w = player_data.speed.decelerate.w >> 2;
   background_data.speed.x.w = 0;
   background_data.speed.y.w = 0;
 
@@ -46,23 +43,23 @@ void background_init(){
 }
 
 void background_update(){
-  if (input_data.flags & J_DPAD){
-    moveToward(input_data.direction, &background_data);
-  } else {
-    slowDown(&background_data);
+  UWORD addBy;
+  
+  addBy = player_data.speed.x.w >> 2;
+  //if this is a negative number
+  if (player_data.speed.x.b.h & 0x80){
+    // pad the addBy number with 1's
+    addBy = addBy | 0xC000;
   }
-  if (player_data.speed.x.w == 0){
-    background_data.speed.x.w = 0;
+  background_data.position.x.w += addBy;
+  addBy = player_data.speed.y.w >> 2;
+  //if this is a negative number
+  if (player_data.speed.y.b.h & 0x80){
+    // pad the addBy number with 1's
+    addBy = addBy | 0xC000;
   }
-  if (player_data.speed.y.w == 0){
-    background_data.speed.y.w = 0;
-  }
-  background_data.position.x.w += background_data.speed.x.w;
-  background_data.position.y.w += background_data.speed.y.w;
- // background_data.position.x.w += (player_data.speed.x.w);
- // background_data.position.y.w += (player_data.speed.y.w);
-  //background_data.position.x.w += (((WORD)player_data.speed.x.w) >> 2);
-  //background_data.position.y.w += (((WORD)player_data.speed.y.w) >> 2);
+  background_data.position.y.w += addBy;
+
   SCX_REG = background_data.position.x.b.h;
   SCY_REG = background_data.position.y.b.h;
 //  BGP_REG = background_palettes[player_data.position.z];
