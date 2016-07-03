@@ -4,14 +4,16 @@
  */
 
 #include "include/player.h"
-#include "tiles/player-data.c"
+#include "tiles/sprite-data.c"
 #include <gb/gb.h>
-#include "input.c"
+#include "include/input.h"
+#include "entity.c"
 
 void player_init(){
-  // load sprite into VRAM
-  set_sprite_data(0x00, 0x18, player_sprite_data);
-  set_sprite_prop(0, 0x00);
+  set_sprite_tile(0, virus_tiles[0]);
+  //set_sprite_prop(0, 0)//use palette 0
+  //for now we are always a virus
+  player_data.type = VIRUS;
   // set up variables
   player_data.speed.straight.w = 0x0030;
   player_data.speed.diagonal.w = 0x0022;
@@ -31,60 +33,10 @@ void player_update(){
 
   //if any of the d-pad buttons are pressed
   if (input_data.flags & J_DPAD){
-    switch(input_data.direction){
-      case N:
-        player_data.speed.y.w -= player_data.speed.straight.w;
-        break;
-      case NE:
-        player_data.speed.y.w -= player_data.speed.diagonal.w;
-        player_data.speed.x.w += player_data.speed.diagonal.w;
-        break;
-      case E:
-        player_data.speed.x.w += player_data.speed.straight.w;
-        break;
-      case SE:
-        player_data.speed.y.w += player_data.speed.diagonal.w;
-        player_data.speed.x.w += player_data.speed.diagonal.w;
-        break;
-      case S:
-        player_data.speed.y.w += player_data.speed.straight.w;
-        break;
-      case SW:
-        player_data.speed.y.w += player_data.speed.diagonal.w;
-        player_data.speed.x.w -= player_data.speed.diagonal.w;
-        break;
-      case W:
-        player_data.speed.x.w -= player_data.speed.straight.w;
-        break;
-      case NW:
-        player_data.speed.y.w -= player_data.speed.diagonal.w;
-        player_data.speed.x.w -= player_data.speed.diagonal.w;
-        break;
-    }
+    moveToward(input_data.direction, &player_data);
   } 
   // otherwise you are decelerating
   else {
-    if (player_data.speed.x.w != 0){
-      if ((WORD)player_data.speed.x.w > 0){
-        if (player_data.speed.x.w < player_data.speed.decelerate.w){
-          player_data.speed.x.w = 0;
-        } else {
-          player_data.speed.x.w -= player_data.speed.decelerate.w;
-        }
-      } else {
-        player_data.speed.x.w += player_data.speed.decelerate.w;
-      }
-    }
-    if (player_data.speed.y.w != 0){
-      if ((WORD)player_data.speed.y.w > 0){
-        if (player_data.speed.y.w < player_data.speed.decelerate.w){
-          player_data.speed.y.w = 0;
-        } else {
-          player_data.speed.y.w -= player_data.speed.decelerate.w;
-        }
-      } else {
-        player_data.speed.y.w += player_data.speed.decelerate.w;
-      }
-    }
+    slowDown(&player_data);
   }
 }

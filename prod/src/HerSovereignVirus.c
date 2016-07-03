@@ -1,12 +1,14 @@
 /**
- * multi.c
+ * HerSovereignVirus.c
  * Quin Kennedy, David Frankel, Vivek Vimal, Party Skeleton, 2016
  */
 
-#include "include/multi.h"
+#include "include/HerSovereignVirus.h"
 #include "screen.c"
+#include "input.c"
+#include <gb/gb.h>
 
-void main(void){
+int main(void){
   setup();
   while(1){
     screen_update();

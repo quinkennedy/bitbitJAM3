@@ -6,6 +6,7 @@
 #include "include/background.h"
 #include "tiles/background-data.c"
 #include <gb/gb.h>
+#include <rand.h>
 
 void background_init(){
   UBYTE i, j;
@@ -13,17 +14,20 @@ void background_init(){
   BGP_REG = background_palettes[player_data.position.z];
 
   /* Initialize the background */
-  set_bkg_data(0xFC, 0x04, std_sprite_data);
-  set_bkg_data(0x00, 0x2D, background_sprite_data);
-  /*
-   * Draw the background
-   *
-   * Width  = 0x100 = 0x20 * 8
-   * Height = 0x100 = 0x20 * 8
-   */
-  for(i = 0; i < 32; i+=8)
-    for(j = 0; j < 32; j+=8)
-      set_bkg_tiles(i, j, 8, 8, background_tiles);
+  // load background tiles into VRAM
+  set_bkg_data(0x00, BACKGROUND_DATA_SIZE, background_sprite_data);
+
+  // create a random background
+  for(i = 0; i < 32; i++){
+    for(j = 0; j < 32; j++){
+      set_bkg_tiles(i, j, 
+                    1, 1, 
+                    background_tiles + 
+                      (rand() % BACKGROUND_DATA_SIZE));
+    }
+  }
+
+  //start at 0,0
   background_data.position.x.w = 0;
   background_data.position.y.w = 0;
   SCX_REG = 0;

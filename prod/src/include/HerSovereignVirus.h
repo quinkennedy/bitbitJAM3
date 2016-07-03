@@ -1,11 +1,11 @@
 /**
- * multi.h
+ * HerSovereignVirus.h
  * Quin Kennedy, David Frankel, Vivek Vimal, Party Skeleton, 2016
  */
-#ifndef MULTI
-#define MULTI
+#ifndef HER_SOVEREIGN_VIRUS
+#define HER_SOVEREIGN_VIRUS
 
-void main();
+int main();
 void setup();
 
 #endif

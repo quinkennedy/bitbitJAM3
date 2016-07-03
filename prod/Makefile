@@ -1,5 +1,5 @@
 CC=lcc
-ROM=multi.gb
+ROM=HerSovereignVirus.gb
 C_FILES=$(wildcard src/*.c)
 O_FILES=$(addprefix obj/,$(notdir $(C_FILES:.c=.o)))
 H_FILES=$(wildcard src/include/*.h)

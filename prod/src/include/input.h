@@ -12,16 +12,16 @@
 
 //if you want to check something like DPAD_DIR.NONE
 // check `input.flags & J_DPAD`
-enum DPAD_DIR {
+typedef enum DPAD_DIR {
   N, NE, E, SE, S, SW, W, NW
-};
+} DPAD_DIR;
 
 typedef struct InputData {
   //yes, these UWORDs will roll-over eventually
   UBYTE dpadFrames;
   UBYTE aFrames;
   UBYTE bFrames;
-  enum DPAD_DIR direction;
+  DPAD_DIR direction;
   UBYTE flags;
 } InputData;
 
