@@ -5,6 +5,9 @@
 #ifndef ENTITY_H
 #define ENTITY_H
 
+#define NUM_LAYERS 5
+#define MAX_LAYER 4
+
 #include <types.h>
 #include "input.h"
 #include "../tiles/sprite-data.c"
@@ -12,6 +15,10 @@
 typedef enum EntityType{
   IMMUNE, SKIN, NEURON, VIRUS
 } EntityType;
+
+typedef enum Visibility{
+  NONE, SHADOW, FULL
+} Visibility;
 
 typedef struct Position{
   fixed x;
@@ -31,6 +38,7 @@ typedef struct EntityData{
   Position position;
   Speed speed;
   EntityType type;
+  Visibility visibility;
   UBYTE animMask;
   UBYTE animFrame;
 } EntityData;

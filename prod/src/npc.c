@@ -52,16 +52,43 @@ void createNPC(UBYTE index, EntityType type){
 void npc_init(){
   UBYTE i;
   
-  for( i=0; i != 5/*MAX_NUM_NPC*/; i++){
+  for( i=0; i != MAX_NUM_NPC; i++){
     npc_data[i].type = ((UBYTE)rand()) % 3;
     createNPC(i, npc_data[i].type);
+  }
+  //update NPC visibility
+  npc_playerChangedLayer();
+}
+
+void npc_playerChangedLayer(){
+  UBYTE i, j;
+  EntityData *npc;
+  for( i=0, j=2; i != MAX_NUM_NPC; i++, j+=2){
+    npc = &(npc_data[i]);
+    //if we are one layer off from the player, 
+    // we will be showing the shadow
+    if ((npc->position.z == (player_data.position.z + 1)) ||
+        ((npc->position.z + 1) == player_data.position.z)){
+      npc->visibility = SHADOW;
+      //cheaper than doing a Modulo
+      npc->animFrame = npc->animFrame & (SHADOW_FRAMES - 1);
+      tileSprite(j, shadow_tiles[npc->animFrame], npc->type);
+    } else if (npc->position.z != player_data.position.z){
+      npc->visibility = NONE;
+      //hide the sprite
+      move_sprite(j, 0, 0);
+      move_sprite(j+1, 0, 0);
+    } else {
+      npc->visibility = FULL;
+      tileSprite(j, entity_tiles_ref[npc->type][npc->animFrame], npc->type);
+    }
   }
 }
 
 void npc_update(){
   UBYTE i, j;
   EntityData *npc;
-  for( i=0, j=2; i != 5/*MAX_NUM_NPC*/; i++, j+=2){
+  for( i=0, j=2; i != MAX_NUM_NPC; i++, j+=2){
     npc = &(npc_data[i]);
     //move based on the player's speed
     npc->position.x.w = 
@@ -73,8 +100,10 @@ void npc_update(){
       npc->speed.y.w - 
       player_data.speed.y.w;
     //update the sprite's location -- move to draw?
-    placeSprite(j, npc);
-    animate(j, npc);
+    if (npc->visibility != NONE){
+      placeSprite(j, npc);
+      animate(j, npc);
+    }
   }
 }
 

@@ -22,6 +22,7 @@ void player_init(){
   player_data.speed.decelerate.w = 0x0004;
   player_data.animMask = 1;//magic number
   player_data.animFrame = 0;
+  player_data.visibility = FULL;
   // center player on screen
   player_data.position.x.w = 0x5000;
   player_data.position.y.w = 0x5000;
@@ -42,6 +43,18 @@ void player_update(){
   // otherwise you are decelerating
   else {
     slowDown(&player_data);
+  }
+
+  if ((input_data.flags & J_A) &&
+      !(input_data.aFrames & 0xF) &&
+      (player_data.position.z != 0)){
+    player_data.position.z--;
+    npc_playerChangedLayer();
+  } else if ((input_data.flags & J_B) &&
+             !(input_data.bFrames & 0xF) &&
+             (player_data.position.z != MAX_LAYER)){
+    player_data.position.z++;
+    npc_playerChangedLayer();
   }
   animate(0, &player_data);
 }

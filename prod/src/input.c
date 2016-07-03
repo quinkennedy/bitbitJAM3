@@ -12,13 +12,13 @@ static void input_update(){
   UBYTE newFlags = joypad();
   UBYTE oldFlags = input_data.flags;
 
-  if (newFlags & J_A == oldFlags & J_A){
+  if ((newFlags & J_A) == (oldFlags & J_A)){
     input_data.aFrames++;
   } else {
     input_data.aFrames = 0;
   }
 
-  if (newFlags & J_B == oldFlags & J_B){
+  if ((newFlags & J_B) == (oldFlags & J_B)){
     input_data.bFrames++;
   } else {
     input_data.bFrames = 0;

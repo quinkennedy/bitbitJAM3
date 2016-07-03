@@ -7,6 +7,7 @@
 
 #include "include/entity.h"
 #include <gb/gb.h>
+#include "include/player.h"
 //for the tile sprite method
 #include "include/npc.h"
 
@@ -68,16 +69,26 @@ void slowDown(EntityData *data){
   }
 }
 
+//WARNING: do not call this if the sprite has visibility NONE
+//  I don't want to waste cycles checking inside this function
 void animate(UBYTE spriteIndex, EntityData *data){
   if ((sys_time & data->animMask) == 0){
     data->animFrame++;
-    if (data->animFrame == entity_anim_frames[data->type]){
-      data->animFrame = 0;
+    if (data->visibility == FULL){
+      if (data->animFrame == entity_anim_frames[data->type]){
+        data->animFrame = 0;
+      }
+      tileSprite(spriteIndex, 
+                 entity_tiles_ref[data->type][data->animFrame],
+                 data->type);
+    } else {
+      if (data->animFrame == SHADOW_FRAMES){
+        data->animFrame = 0;
+      }
+      tileSprite(spriteIndex,
+                 shadow_tiles[data->animFrame],
+                 data->type);
     }
-
-    tileSprite(spriteIndex, 
-               entity_tiles_ref[data->type][data->animFrame],
-               data->type);
   }
 }
 

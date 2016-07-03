@@ -12,7 +12,7 @@
 //} BackgroundData;
 
 EntityData background_data;
-UBYTE background_palettes[5] = {0x40U,0x90U,0xE4U,0xF9U,0xFEU};
+UBYTE background_palettes[NUM_LAYERS] = {0x40U,0x90U,0xE4U,0xF9U,0xFEU};
 
 void background_init();
 void background_update();

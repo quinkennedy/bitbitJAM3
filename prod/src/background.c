@@ -64,7 +64,7 @@ void background_update(){
 
   SCX_REG = background_data.position.x.b.h;
   SCY_REG = background_data.position.y.b.h;
-//  BGP_REG = background_palettes[player_data.position.z];
+  BGP_REG = background_palettes[player_data.position.z];
 }
 
 #endif
