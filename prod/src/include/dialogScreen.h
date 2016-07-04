@@ -65,7 +65,7 @@ during great turmoil\
  I am Ultimate.\n\
  The Kingdom\n\
   exists only to\n\
- Feed my HUNGER\n", 2},
+ Feed my HUNGER\n\n", 2},
   {"\
  I am leaving,\n\
  I will create\n\
@@ -76,7 +76,7 @@ during great turmoil\
  I will be the \n\
  First to infect\n\
  To Conquer\n\
- The HUMANS\n", 1},
+ The HUMANS\n\n", 1},
   {"\
 \n\
  I will\n\

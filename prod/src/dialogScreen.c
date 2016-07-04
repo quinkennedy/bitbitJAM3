@@ -11,6 +11,7 @@
 #include "include/screen.h"
 #include <gb/gb.h>
 #include "tiles/portrait-data.c"
+#include "tiles/splash-data.c"
 #include "include/input.h"
 
 void showDialog(DialogEntry *dialog){
@@ -47,8 +48,9 @@ void dialogScreen_enter(){
   DISPLAY_OFF;
   //change all sprites to 8x8
   SPRITES_8x8;
-  SHOW_SPRITES;
   set_sprite_data(0, PORTRAIT_DATA_SIZE, portrait_sprite_data);
+  //load a blank cell into space 0 (that's what the background defaults to)
+  set_bkg_data(0, 1, splash_sprite_data + (0x0D * 16));
   //clear screen
   //place princess on the left
   spriteIndex = 0;

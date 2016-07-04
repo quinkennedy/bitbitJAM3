@@ -9,39 +9,50 @@
 #include <stdio.h>
 #include <gb/font.h>
 #include "include/screen.h"
+#include "tiles/splash-data.c"
+
+void startScreen_splash(){
+  set_bkg_data(0x00, SPLASH_DATA_SIZE, splash_sprite_data);
+  set_bkg_tiles(0, 0, 20, 14, splash_tiles);
+  set_bkg_tiles(0, 14, 20, 4, splash_blank_tiles);
+}
 
 void startScreen_enter(){
-  font_t ibm_font;
-
+  DISPLAY_OFF;
   HIDE_SPRITES;
-  BGP_REG = 0xE4U;
-  //load the font we want to use
-  font_init();
-  ibm_font = font_load(font_ibm);
-  //turn off scrolling
-  mode(get_mode() | M_NO_SCROLL);
-
-  font_set(ibm_font);
-  //write our title
-  printf("\n\n\n\n\n\
-    Her\n\
-     Sovereign\n\
-          Virus\
-\n\n\n\n\n\n\n\n\n\n");
-  startScreen_data.showStart = 120;
+  BGP_REG = 0x50;
+  SCX_REG = SCY_REG = 0;
+  //initialize graphic
+  startScreen_splash();
+  //no font, text is burned into the splash screen
+  startScreen_data.showStart = 255;
+  DISPLAY_ON;
 }
 
 void startScreen_update(){
   if (joypad() & J_START){
     screen_data.state = DIALOG;
   } else if (joypad() & J_SELECT){
-    //TODO: put this behind a DEBUG define
-    screen_data.state = GAME;
+    screen_data.state = CONTROLS;
   } else {
     if (startScreen_data.showStart != 0){
-      if (startScreen_data.showStart == 1){
-        printf("\
-        press START");
+      switch(startScreen_data.showStart){
+        case 220:
+          BGP_REG = 0xA4;
+          break;
+        case 180:
+          BGP_REG = 0xE4;
+          break;
+        case 120:
+          set_bkg_tiles(0, 14, 20, 2, splash_tiles + (20 * 14));
+          break;
+        case 60:
+          set_bkg_tiles(0, 16, 20, 2, splash_blank_tiles);
+          break;
+        case 1:
+          set_bkg_tiles(0, 16, 20, 2, splash_tiles + (20 * 16));
+          startScreen_data.showStart = 119;
+          break;
       }
       startScreen_data.showStart--;
     }
