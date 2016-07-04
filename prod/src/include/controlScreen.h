@@ -10,6 +10,7 @@
 typedef struct ControlData{
   UBYTE timer;
   EntityData sprites[3];
+  UBYTE screen;
 } ControlData;
 
 ControlData controlScreen_data;

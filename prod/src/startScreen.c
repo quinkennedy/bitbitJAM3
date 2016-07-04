@@ -20,6 +20,7 @@ void startScreen_splash(){
 void startScreen_enter(){
   DISPLAY_OFF;
   HIDE_SPRITES;
+  NR52_REG = 0x00;// TURN SOUND OFF
   BGP_REG = 0x50;
   SCX_REG = SCY_REG = 0;
   //initialize graphic

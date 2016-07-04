@@ -12,6 +12,7 @@
 #include <rand.h>
 #include "include/player.h"
 #include "include/screen.h"
+#include "include/sound.h"
 
 void placeSprite(UBYTE index, EntityData *entity){
   move_sprite(index, entity->position.x.b.h, entity->position.y.b.h);
