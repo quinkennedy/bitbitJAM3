@@ -60,17 +60,27 @@ void player_update(){
 }
 
 UBYTE player_checkCollision(EntityData *entity){
-  UBYTE player_hit_x, player_hit_y;
+  UBYTE player_hit_x, player_hit_y, entityBorder;
   //if the entity is on the player's same level
   //and not a VIRUS (virus doesn't hit virus)
   if (player_data.position.z == entity->position.z &&
       entity->type != VIRUS){
+    switch (entity->type){
+      case IMMUNE:
+        entityBorder = 4;
+        break;
+      case SKIN:
+      case NEURON:
+        entityBorder = 2;
+        break;
+    }
     player_hit_x = player_data.position.x.b.h + 4;
     player_hit_y = player_data.position.y.b.h + 4;
-    if (player_hit_x >= entity->position.x.b.h + 4 &&
-        player_hit_x <= entity->position.x.b.h + 12 &&
-        player_hit_y >= entity->position.y.b.h + 4 &&
-        player_hit_y <= entity->position.y.b.h + 12){
+    
+    if (player_hit_x >= (entity->position.x.b.h + entityBorder) &&
+        player_hit_y >= (entity->position.y.b.h + entityBorder) &&
+        player_hit_x <= (entity->position.x.b.h + 16 - entityBorder) &&
+        player_hit_y <= (entity->position.y.b.h + 16 - entityBorder)){
       return 1;
     }
   }

@@ -17,6 +17,7 @@
 void gameScreen_enter(){
   DISPLAY_OFF;
   SHOW_SPRITES;
+  SPRITES_8x16;
 
   //load game sprites into VRAM
   set_sprite_data(0x00, SPRITE_DATA_SIZE, sprite_tile_data);
