@@ -15,9 +15,10 @@
 #include "controlScreen.c"
 
 void screen_update(){
-
   //cache the current state so we know if it changes
   ScreenState prev_state = screen_data.state;
+
+  my_sys_time++;
 
   //call the appropriate update function
   (*screen_updates[screen_data.state])();
@@ -35,6 +36,7 @@ void screen_draw(){
 }
 
 void screen_setup(){
+  my_sys_time = 0;
   //start initial setup of everything
   // start with the screen off and interrupts disabled so we can
   // power through setup without weird glitches on the screen

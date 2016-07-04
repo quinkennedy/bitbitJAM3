@@ -10,6 +10,8 @@
 #include "include/player.h"
 //for the tile sprite method
 #include "include/npc.h"
+//for my_sys_time
+#include "include/screen.h"
 
 void moveToward(DPAD_DIR direction, EntityData *data){
   switch(direction){
@@ -69,12 +71,23 @@ void slowDown(EntityData *data){
   }
 }
 
-//WARNING: do not call this if the sprite has visibility NONE
-//  I don't want to waste cycles checking inside this function
+//will animate regardless of visibility
 void animate(UBYTE spriteIndex, EntityData *data){
-  if ((sys_time & data->animMask) == 0){
+  if ((my_sys_time & data->animMask) == 0){
     data->animFrame++;
-    if (data->visibility == FULL){
+    if (data->dying){
+      if (data->animFrame == NUM_SKIN_DEATH_FRAMES){
+        //if the death frames looped back to zero, 
+        // we shouldn't need to update the visible sprite
+        // someone else should clean it up
+        data->animFrame = 0;
+      } else {
+        tileSprite(spriteIndex,
+                   //the death animation is defined after the dwell animation
+                   skin_tiles[data->animFrame + entity_anim_frames[SKIN]],
+                   data->type);
+      }
+    } else if (data->visibility == FULL){
       if (data->animFrame == entity_anim_frames[data->type]){
         data->animFrame = 0;
       }
@@ -82,7 +95,7 @@ void animate(UBYTE spriteIndex, EntityData *data){
                  entity_tiles_ref[data->type][data->animFrame],
                  data->type);
     } else {
-      if (data->animFrame == SHADOW_FRAMES){
+      if (data->animFrame == NUM_SHADOW_FRAMES){
         data->animFrame = 0;
       }
       tileSprite(spriteIndex,

@@ -41,6 +41,7 @@ typedef struct EntityData{
   Visibility visibility;
   UBYTE animMask;
   UBYTE animFrame;
+  UBYTE dying;
 } EntityData;
 
 UBYTE entity_anim_frames[4] = {8, 11, 10, 12};

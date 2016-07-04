@@ -31,18 +31,17 @@ const unsigned char skin_tiles[] ={
   // standard animation
   0x6C,0x70,0x74,0x78,0x7C,0x80,0x84,0x88,0x8C,0x90,0x94,
   // death animation
-  0x98,0x9A,0xA0,0xA4,0xA8,0xAA,0xB0
+  0x98,0x9C,0xA0,0xA4,0xA8,0xAC,0xB0
 };
+
+#define NUM_SKIN_DEATH_FRAMES 7
 
 const unsigned char shadow_tiles[] ={
   // standard animation
   0xB4,0xB8,0xBA,0xC0,0xC4
 };
 
-// The code in npc_playerChangedLayer 
-// depends on shadow_tiles being shorter than 
-// all other animations
-#define SHADOW_FRAMES 5
+#define NUM_SHADOW_FRAMES 5
 
 // 12*2 + 6*2 + 8*4 + 10*4 + 11*4 + 7*4 + 5*4
 #define SPRITE_DATA_SIZE 200

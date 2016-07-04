@@ -5,6 +5,8 @@
 #ifndef SCREEN_H
 #define SCREEN_H
 
+#include <types.h>
+
 #define NUM_SCREENS 6
 typedef enum ScreenState{
   START, DIALOG, GAME, WIN, LOSE, CONTROLS
@@ -14,6 +16,8 @@ typedef struct ScreenData{
   ScreenState state;
 } ScreenData;
 ScreenData screen_data;
+
+UBYTE my_sys_time;
 
 void screen_setup();
 void screen_update();
