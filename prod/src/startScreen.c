@@ -34,6 +34,9 @@ void startScreen_enter(){
 void startScreen_update(){
   if (joypad() & J_START){
     screen_data.state = DIALOG;
+  } else if (joypad() & J_SELECT){
+    //TODO: put this behind a DEBUG define
+    screen_data.state = GAME;
   } else {
     if (startScreen_data.showStart != 0){
       if (startScreen_data.showStart == 1){

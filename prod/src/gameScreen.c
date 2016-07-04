@@ -9,6 +9,7 @@
 #include "tiles/sprite-data.c"
 #include "player.c"
 #include "background.c"
+#include "sound.c"
 #include "include/screen.h"
 #include "npc.c"
 #include <gb/gb.h>
@@ -29,6 +30,7 @@ void gameScreen_enter(){
   player_init();
   npc_init();
   background_init();
+  sound_init();
 
   DISPLAY_ON;
 }
@@ -37,6 +39,7 @@ void gameScreen_update(){
   player_update();
   npc_update();
   background_update();
+  sound_update();
 }
 
 void gameScreen_draw(){

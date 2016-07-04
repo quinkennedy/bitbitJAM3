@@ -37,19 +37,22 @@ void loseScreen_enter(){
   mode(get_mode() | M_NO_SCROLL);
 
   font_set(ibm_font);
-  printf("\n\
-  Because of your  \n\
-   incompetence    \n\
- there are still   \n\
-     3 billion     \n\
-    BARBARIANS     \n\
-  unconquered by   \n\
- our sovereignty.  \n\
-                   \n\
-  I can only hope  \n\
- a superior strain \n\
- will succeed you. \n\
-\n\n\n\n\n");
+  printf("\
+\n\
+  Because of your   \
+    incompetence    \
+  there are still   \
+\n\
+   3,000,000,000    \
+\n\
+    BARBARIANS      \
+  unconquered by    \
+  our sovereignty.  \
+                    \
+  I can only hope   \
+ a superior strain  \
+ will succeed you.  \
+\n\n\n");
   //time out after 4 seconds
   loseScreen_data.losetime = 240;
 }

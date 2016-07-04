@@ -31,6 +31,9 @@ void player_init(){
   player_data.speed.y.w = 0x0000;
   // set registers
   move_sprite(0, player_data.position.x.b.h, player_data.position.y.b.h);
+  //the player is responsible for sprite 2 too,
+  // in case it wants to be 16pixels wide
+  move_sprite(1, 0, 0);
 }
 
 void player_update(){
