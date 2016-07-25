@@ -6,10 +6,12 @@
 #define DIALOG_SCREEN_H
 
 #include <types.h>
+#include <gb/gb.h>
 
 typedef struct DialogScreenData{
   UBYTE dialogNum;
   UBYTE dialogTime;
+  UBYTE nextCharacter;
 } DialogScreenData;
 
 DialogScreenData dialogScreen_data;
@@ -18,6 +20,8 @@ void dialogScreen_enter();
 void dialogScreen_update();
 void dialogScreen_draw();
 
+UBYTE printDialogChar();
+
 typedef struct DialogEntry{
   char * text;
   UBYTE speaker;//0 = no portraits
@@ -25,41 +29,35 @@ typedef struct DialogEntry{
 
 #define DIALOG_LENGTH 5
 #define DIALOG_SPEAKER_PALETTE 0xE4U
-#define DIALOG_LISTENER_PALETTE 0x90U
+#define DIALOG_LISTENER_PALETTE 0xF8U
 
 DialogEntry dialog[] = {
   {"\
-\n\n\
-  60,000 years ago  \
-during great turmoil\
-\n\
- His Magesty        \
-       King Simplex \
-\n\
-     spoke with     \
-    his daughter    \
-\n\
- Her Royal          \
-   Highness         \
-     Princess Virus \
-          The First\n\n\n", 0},
+  60,000 years ago, \n\
+    during great    \n\
+      turmoil,      \n\
+    His Magesty,    \n\
+   King Simplex I,  \n\
+    spoke with his  \n\
+     daughter...\n\n\n", 0},
   {"\
- Father,\n\
- You are weak\n\
- You are corrupt\n\
- There is no\n\
-  greatness in the\n\
- Kingdom.\n\
-\n\
- Your existence is\n\
-  stagnant\n\
- Your soul is a\n\
+Father,\n\n\
+You are weak\n\n\
+You are corrupt\n\n\n", 1},
+  {"\
+There is no\n\n\
+  greatness in\n\n\
+the Kingdom.\n\n\n", 1},
+  {"\
+Your existence\n\n\
+  is stagnant\n\n\
+Your soul is a\n\n\
   cesspool\n", 1},
   {"\
- My Daughter,\n\
- You are my\n\
+My Daughter,\n\
+You are my\n\
   living wound\n\
- That bleeds\n\
+That bleeds\n\
   flowing sorrow\n\
 \n\
  I am Ultimate.\n\

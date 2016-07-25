@@ -1,1 +1,1 @@
-mkdir -p processed; gm convert *.png -append processed/combined.png
+mkdir -p processed; gm convert @files.txt -append processed/combinedtalk.png
