@@ -12,7 +12,7 @@
 #include "winScreen.c"
 #include "loseScreen.c"
 #include "dialogScreen.c"
-#include "controlScreen.c"
+//#include "controlScreen.c"
 
 void screen_update(){
   //cache the current state so we know if it changes
@@ -62,21 +62,21 @@ void screen_setup(){
   screen_updates[GAME] = gameScreen_update;
   screen_updates[WIN] = winScreen_update;
   screen_updates[LOSE] = loseScreen_update;
-  screen_updates[CONTROLS] = controlScreen_update;
+//  screen_updates[CONTROLS] = controlScreen_update;
 
   screen_draws[START] = startScreen_draw;
   screen_draws[DIALOG] = dialogScreen_draw;
   screen_draws[GAME] = gameScreen_draw;
   screen_draws[WIN] = winScreen_draw;
   screen_draws[LOSE] = loseScreen_draw;
-  screen_draws[CONTROLS] = controlScreen_draw;
+//  screen_draws[CONTROLS] = controlScreen_draw;
 
   screen_enters[START] = startScreen_enter;
   screen_enters[DIALOG] = dialogScreen_enter;
   screen_enters[GAME] = gameScreen_enter;
   screen_enters[WIN] = winScreen_enter;
   screen_enters[LOSE] = loseScreen_enter;
-  screen_enters[CONTROLS] = controlScreen_enter;
+//  screen_enters[CONTROLS] = controlScreen_enter;
 
   // initialize the first screen
   screen_data.state = START;

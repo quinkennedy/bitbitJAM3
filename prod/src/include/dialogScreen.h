@@ -10,7 +10,6 @@
 
 typedef struct DialogScreenData{
   UBYTE dialogNum;
-  UBYTE dialogTime;
   UBYTE nextCharacter;
 } DialogScreenData;
 
@@ -21,71 +20,102 @@ void dialogScreen_update();
 void dialogScreen_draw();
 
 UBYTE printDialogChar();
+UBYTE isPortraitDialogScreen();
+UBYTE hasPrintedLastCharacter();
+
+typedef enum PortraitSpeaker{
+  NO_SPEAKER, LEFT_SPEAKER, RIGHT_SPEAKER
+} PortraitSpeaker;
+
+typedef enum PortraitCharacter{
+  NO_CHARACTER = -1,
+  KING_CHARACTER = 0, 
+  PRINCESS_CHARACTER = 1,
+  IMMUNE_CHARACTER = 3,
+  CELL_CHARACTER = 5,
+  NEURON_CHARACTER = 7
+} PortraitCharacter;
 
 typedef struct DialogEntry{
   char * text;
-  UBYTE speaker;//0 = no portraits
+  PortraitSpeaker speaker;
+  PortraitCharacter leftPortrait;
+  PortraitCharacter rightPortrait;
 } DialogEntry;
 
-#define DIALOG_LENGTH 5
+#define DIALOG_LENGTH 12
 #define DIALOG_SPEAKER_PALETTE 0xE4U
 #define DIALOG_LISTENER_PALETTE 0xF8U
 
 DialogEntry dialog[] = {
   {"\
-  60,000 years ago, \n\
+ 60,000 years ago, \n\
     during great    \n\
       turmoil,      \n\
     His Magesty,    \n\
    King Simplex I,  \n\
     spoke with his  \n\
-     daughter...\n\n\n", 0},
+     daughter...\n\n\n", 
+   NO_SPEAKER, NO_CHARACTER, NO_CHARACTER},
   {"\
 Father,\n\n\
 You are weak\n\n\
-You are corrupt\n\n\n", 1},
+You are corrupt\n\n\n", 
+   LEFT_SPEAKER, PRINCESS_CHARACTER, KING_CHARACTER},
   {"\
 There is no\n\n\
   greatness in\n\n\
-the Kingdom.\n\n\n", 1},
+the Kingdom.\n\n\n",
+   LEFT_SPEAKER, PRINCESS_CHARACTER, KING_CHARACTER},
   {"\
 Your existence\n\n\
   is stagnant\n\n\
 Your soul is a\n\n\
-  cesspool\n", 1},
+  cesspool\n",
+   LEFT_SPEAKER, PRINCESS_CHARACTER, KING_CHARACTER},
   {"\
-My Daughter,\n\
-You are my\n\
-  living wound\n\
-That bleeds\n\
-  flowing sorrow\n\
-\n\
- I am Ultimate.\n\
- The Kingdom\n\
-  exists only to\n\
- Feed my HUNGER\n\n", 2},
+My Daughter,\n\n\
+You are my\n\n\
+  living wound\n\n\n",
+   RIGHT_SPEAKER, PRINCESS_CHARACTER, KING_CHARACTER},
   {"\
- I am leaving,\n\
- I will create\n\
-  a Kingdom\n\
- That will span\n\
-  the world. \n\
-\n\
- I will be the \n\
- First to infect\n\
- To Conquer\n\
- The HUMANS\n\n", 1},
+A wound\n\n\
+  in my heart\n\n\
+That bleeds\n\n\
+  flowing sorrow\n",
+   RIGHT_SPEAKER, PRINCESS_CHARACTER, KING_CHARACTER},
   {"\
-\n\
- I will\n\
- Pull dreams\n\
-  from the Heavens\n\
-\n\
-\n\
- And deliver them\n\
-  into our Reality\n\
-\n\
-\n\n", 1}
+I am Ultimate.\n\n\
+The Kingdom\n\n\
+  exists only to\n\n\
+Feed my HUNGER\n", 
+   RIGHT_SPEAKER, PRINCESS_CHARACTER, KING_CHARACTER},
+  {"\
+I am leaving,\n\n\
+I will create\n\n\
+  a Kingdom\n\n\
+Of my own\n",
+   LEFT_SPEAKER, PRINCESS_CHARACTER, KING_CHARACTER},
+  {"\
+A Kingdom\n\n\
+  that will span\n\n\
+The world.\n\n\n",
+   LEFT_SPEAKER, PRINCESS_CHARACTER, KING_CHARACTER},
+  {"\
+I will be the \n\n\
+First to infect\n\n\
+To Conquer\n\n\
+The HUMANS\n", 
+   LEFT_SPEAKER, PRINCESS_CHARACTER, KING_CHARACTER},
+  {"\
+I will\n\n\
+Pull dreams from\n\n\
+  the Heavens\n\n\n",
+   LEFT_SPEAKER, PRINCESS_CHARACTER, NO_CHARACTER},
+  {"\
+And deliver them\n\n\
+  into our Reality\n\n\n\n\n",
+   LEFT_SPEAKER, PRINCESS_CHARACTER, NO_CHARACTER}
 };
 
 #endif
