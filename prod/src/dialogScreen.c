@@ -70,7 +70,7 @@ void showDialog(DialogEntry *dialog){
     HIDE_SPRITES;
     //set background to text-only mode
     y = 0;
-    cell = 0x9A + NUM_FONT_TILES;
+    cell = 0x9A + NUM_FONT_TILES + 1;
     set_bkg_tiles(0, 0, 1, 1, &cell);
     cell++;
     set_bkg_tiles(1, 0, 1, 1, &cell);
@@ -109,7 +109,7 @@ void showDialog(DialogEntry *dialog){
     if (dialog->leftPortrait != NO_CHARACTER){
       for(y = 1, index = (dialog->leftPortrait << 4); y != 5; y++){
         for(x = 1; x != 5; x++, index++){
-          cell = dialog_tiles[index] + NUM_FONT_TILES;
+          cell = dialog_tiles[index] + NUM_FONT_TILES + 1;
           set_bkg_tiles(x, y, 1, 1, &cell);
         }
       }
@@ -118,13 +118,13 @@ void showDialog(DialogEntry *dialog){
     if (dialog->rightPortrait != NO_CHARACTER){
       for(y = 1, index = (dialog->rightPortrait << 4); y != 5; y++){
         for(x = 15; x != 19; x++, index++){
-          cell = dialog_tiles[index] + NUM_FONT_TILES;
+          cell = dialog_tiles[index] + NUM_FONT_TILES + 1;
           set_bkg_tiles(x, y, 1, 1, &cell);
         }
       }
     }
     //set black between portraits
-    cell = DIALOG_BLACK + NUM_FONT_TILES;
+    cell = DIALOG_BLACK + NUM_FONT_TILES + 1;
     for(y = 0; y != 6; y++){
       for(x = 6; x != 14; x++){
         set_bkg_tiles(x, y, 1, 1, &cell);
@@ -200,21 +200,21 @@ void dialogScreen_enter(){
   //change all sprites to 8x8
   SPRITES_8x8;
 
+  // load dkgrey as background tile 0
+  set_bkg_data(0, 1, dialog_data + (DIALOG_DKGREY << 4));
+  // load dialog background data
+  set_bkg_data(NUM_FONT_TILES + 1, DIALOG_DATA_SIZE, dialog_data);
+  // load in-game sprites
+  //set_sprite_data(0, PORTRAIT_DATA_SIZE, portrait_sprite_data);
+  //set_bkg_data(0, 1, dialog_bg_tile_data + DIALOG_FRAMES_DKGREY);
+  //clear screen
+
   //load the font we want to use
   font_init();
   color(WHITE, DKGREY, SOLID);
   // 93 tiles -- based on code comments in gbdk/gbdk-lib/examples/gb/fonts.c
   font = font_load(alpha_num_italic_font);
   font_set(font);
-
-  // load dialog background data
-  set_bkg_data(NUM_FONT_TILES, DIALOG_DATA_SIZE, dialog_data);
-  // load in-game sprites
-  //set_sprite_data(0, PORTRAIT_DATA_SIZE, portrait_sprite_data);
-  // load dkgrey as background tile 0
-  set_bkg_data(0, 1, dialog_data + (DIALOG_DKGREY << 4));
-  //set_bkg_data(0, 1, dialog_bg_tile_data + DIALOG_FRAMES_DKGREY);
-  //clear screen
   
   //move all sprites offscreen
   spriteIndex = 0;
@@ -269,7 +269,7 @@ void dialogScreen_update(){
     if(!printDialogChar()){
 
       //blink the down arrow
-      cell = NEXT_TILES_START + NUM_FONT_TILES;
+      cell = NEXT_TILES_START + NUM_FONT_TILES + 1;
       if (sys_time & 0x10){
         cell++;
       }

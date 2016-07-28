@@ -22,9 +22,9 @@ const unsigned char nine_slice_thin_frame[] = {
 //  0x8A, 0x89, 0x8B,
 //  0x8C, 0x8D, 0x8E
 //  the below numbers are pre-offset to account for the loaded font
-  199, 200, 201,
-  203, 202, 204,
-  205, 206, 207
+  200, 201, 202,
+  204, 203, 205,
+  206, 207, 208
 };
 
 const unsigned char nine_slice_thick_frame[] = {
@@ -32,9 +32,9 @@ const unsigned char nine_slice_thick_frame[] = {
 //  0x92, 0x93, 0x94,
 //  0x95, 0x96, 0x97
 //  the below numbers are pre-offset to account for the loaded font
-  208, 209, 210,
-  211, 212, 213,
-  214, 215, 216
+  209, 210, 211,
+  212, 213, 214,
+  215, 216, 217
 };
 /*
 const unsigned char text_only_header[] = {
