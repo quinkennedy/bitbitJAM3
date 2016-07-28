@@ -55,6 +55,26 @@ void renderBackgroundSquare(UBYTE frame[],
   set_bkg_tiles(x, y, 1, 1, frame);
 }
 
+void renderBlackSquare(UBYTE start_x, UBYTE start_y,
+                       UBYTE w, UBYTE h){
+  UBYTE x, y, cell;
+
+  //move start positions back one for end conditions
+  start_x--;
+  start_y--;
+
+  //sprite number of black tile
+  cell = DIALOG_BLACK + NUM_FONT_TILES + 1;
+
+  //set all cells to black
+  //iterate backward
+  for(y = start_y + h; y != start_y; y--){
+    for(x = start_x + w; x != start_x; x--){
+      set_bkg_tiles(x, y, 1, 1, &cell);
+    }
+  }
+}
+
 void showDialog(DialogEntry *dialog){
   UBYTE x, y, cell;
   int index;
@@ -91,19 +111,24 @@ void showDialog(DialogEntry *dialog){
     SHOW_SPRITES;
     //set left portrait frame
     if (dialog->speaker == LEFT_SPEAKER){
-      renderBackgroundSquare(nine_slice_thick_frame, 0, 0, 4, 4, 
-                             dialog->leftPortrait == NO_CHARACTER);
+      renderBackgroundSquare(nine_slice_thick_frame, 0, 0, 4, 4, 0);
     } else {
-      renderBackgroundSquare(nine_slice_thin_frame, 0, 0, 4, 4,
-                             dialog->leftPortrait == NO_CHARACTER);
+      if (dialog->leftPortrait == NO_CHARACTER){
+        renderBlackSquare(0, 0, 6, 6);
+      } else {
+        renderBackgroundSquare(nine_slice_thin_frame, 0, 0, 4, 4, 0);
+      }
     }
     //set right portrait frame
     if (dialog->speaker == RIGHT_SPEAKER){
       renderBackgroundSquare(nine_slice_thick_frame, 14, 0, 4, 4,
                              dialog->rightPortrait == NO_CHARACTER);
     } else {
-      renderBackgroundSquare(nine_slice_thin_frame, 14, 0, 4, 4,
-                             dialog->rightPortrait == NO_CHARACTER);
+      if (dialog->rightPortrait == NO_CHARACTER){
+        renderBlackSquare(14, 0, 6, 6);
+      } else {
+        renderBackgroundSquare(nine_slice_thin_frame, 14, 0, 4, 4, 0);
+      }
     }
     //set left portrait
     if (dialog->leftPortrait != NO_CHARACTER){
@@ -124,12 +149,7 @@ void showDialog(DialogEntry *dialog){
       }
     }
     //set black between portraits
-    cell = DIALOG_BLACK + NUM_FONT_TILES + 1;
-    for(y = 0; y != 6; y++){
-      for(x = 6; x != 14; x++){
-        set_bkg_tiles(x, y, 1, 1, &cell);
-      }
-    }
+    renderBlackSquare(6, 0, 8, 6);
     //set text frame
     renderBackgroundSquare(nine_slice_thick_frame, 0, 6, 18, 10, 1);
     
