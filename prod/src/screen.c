@@ -30,11 +30,6 @@ void screen_update(){
   }
 }
 
-void screen_draw(){
-  //call the the appropriate draw function
-  (*screen_draws[screen_data.state])();
-}
-
 void screen_setup(){
   my_sys_time = 0;
   //start initial setup of everything
@@ -44,10 +39,10 @@ void screen_setup(){
   LCDC_REG = 0x47U;//01000111
   /**
    * LCD        = Off
-   * WindowBank = 0x9CC
+   * WindowBank = 0x9C00 - 0x9FFF
    * Window     = Off
-   * BG Chr     = 0x8800
-   * BG Bank    = 0x9800
+   * BG Chr     = 0x8800 - 0x97FF
+   * BG Bank    = 0x9800 - 0x9BFF
    * OBJ        = 8x16
    * OBJ        = On
    * BG         = On
@@ -63,13 +58,6 @@ void screen_setup(){
   screen_updates[WIN] = winScreen_update;
   screen_updates[LOSE] = loseScreen_update;
 //  screen_updates[CONTROLS] = controlScreen_update;
-
-  screen_draws[START] = startScreen_draw;
-  screen_draws[DIALOG] = dialogScreen_draw;
-  screen_draws[GAME] = gameScreen_draw;
-  screen_draws[WIN] = winScreen_draw;
-  screen_draws[LOSE] = loseScreen_draw;
-//  screen_draws[CONTROLS] = controlScreen_draw;
 
   screen_enters[START] = startScreen_enter;
   screen_enters[DIALOG] = dialogScreen_enter;

@@ -21,10 +21,8 @@ UBYTE my_sys_time;
 
 void screen_setup();
 void screen_update();
-void screen_draw();
 
 void (*screen_updates[NUM_SCREENS])();
-void (*screen_draws[NUM_SCREENS])();
 void (*screen_enters[NUM_SCREENS])();
 
 #endif

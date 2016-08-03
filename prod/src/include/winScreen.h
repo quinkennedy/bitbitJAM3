@@ -15,6 +15,5 @@ WinScreenData winScreen_data;
 
 void winScreen_enter();
 void winScreen_update();
-void winScreen_draw();
 
 #endif

@@ -42,9 +42,4 @@ void gameScreen_update(){
   sound_update();
 }
 
-void gameScreen_draw(){
-  //player_draw();
-  //background_draw();
-}
-
 #endif

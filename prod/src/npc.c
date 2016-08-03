@@ -200,7 +200,4 @@ void npc_update(){
   }
 }
 
-void npc_draw(){
-}
-
 #endif

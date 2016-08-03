@@ -7,6 +7,5 @@
 
 void gameScreen_enter();
 void gameScreen_update();
-void gameScreen_draw();
 
 #endif

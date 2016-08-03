@@ -13,7 +13,10 @@
 #include "../tiles/sprite-data.c"
 
 typedef enum EntityType{
-  IMMUNE, SKIN, NEURON, VIRUS
+  IMMUNE = 0, 
+  SKIN = 1, 
+  NEURON = 2, 
+  VIRUS = 3
 } EntityType;
 
 typedef enum Visibility{

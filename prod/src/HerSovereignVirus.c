@@ -14,7 +14,6 @@ int main(void){
   setup();
   while(1){
     screen_update();
-    screen_draw();
     wait_vbl_done();
   }
 }

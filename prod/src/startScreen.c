@@ -79,6 +79,4 @@ void startScreen_update(){
   }
 }
 
-void startScreen_draw(){}
-
 #endif

@@ -17,7 +17,6 @@ UBYTE npc_counts[4];
 
 void npc_init();
 void npc_update();
-void npc_draw();
 
 void placeSprite(UBYTE index, EntityData *entity);
 void tileSprite(UBYTE index, const unsigned char tile, EntityType type);

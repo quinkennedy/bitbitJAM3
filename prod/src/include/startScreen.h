@@ -15,6 +15,5 @@ StartScreenData startScreen_data;
 
 void startScreen_enter();
 void startScreen_update();
-void startScreen_draw();
 
 #endif

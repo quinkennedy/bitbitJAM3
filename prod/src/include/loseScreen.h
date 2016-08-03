@@ -15,6 +15,5 @@ LoseScreenData loseScreen_data;
 
 void loseScreen_enter();
 void loseScreen_update();
-void loseScreen_draw();
 
 #endif

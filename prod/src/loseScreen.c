@@ -72,6 +72,4 @@ void loseScreen_update(){
   }
 }
   
-void loseScreen_draw(){}
-
 #endif
