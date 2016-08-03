@@ -13,7 +13,7 @@
 #include "include/screen.h"
 #include "tiles/dialog-data.c"
 #include "include/input.h"
-#include "tiles/custom-font.c"
+#include "tiles/minimized-font.c"
 #include "include/npc.h"
 #include "include/player.h"
 
@@ -117,8 +117,9 @@ void displayPortrait(UBYTE x, UBYTE y, UBYTE index, UBYTE offset, UBYTE talks){
 }
 
 void showDialog(DialogEntry *dialog){
-
+#ifndef SHOW_MEMORY
   UBYTE x, y, cell;
+#endif
   //turn off scrolling
   //mode(get_mode() | M_NO_SCROLL);
 
@@ -305,7 +306,7 @@ void dialogScreen_enter(){
   //load the font we want to use
   font_init();
   color(WHITE, DKGREY, SOLID);
-  font = font_load(alpha_num_italic_font);
+  font = font_load(minimized_font);
   font_set(font);
   // load in-game sprites
   set_sprite_data(0, SPRITE_DATA_SIZE - (5 << 2) - (7 << 2), sprite_tile_data);
@@ -321,12 +322,14 @@ void dialogScreen_enter(){
   SCX_REG = SCY_REG = 0;
 
   dialogScreen_data.dialogNum = 0;
-  showDialog(&(dialog[0]));
+  showDialog(dialogs + dialogSet[screen_data.state].start);
   DISPLAY_ON;
 }
 
 UBYTE isPortraitDialogScreen(){
-  return (dialog[dialogScreen_data.dialogNum].speaker != NO_SPEAKER);
+  return (dialogs[dialogSet[screen_data.state].start + 
+                  dialogScreen_data.dialogNum].
+            speaker != NO_SPEAKER);
 }
 
 void dialogScreen_update(){
@@ -334,44 +337,40 @@ void dialogScreen_update(){
   UBYTE cell;
 #endif
   DialogEntry *dialogEntry;
-  dialogEntry = &(dialog[dialogScreen_data.dialogNum]);
+  dialogEntry = (dialogs + 
+                 dialogSet[screen_data.state].start + 
+                 dialogScreen_data.dialogNum);
   input_update();
-#ifdef SHOW_MEMORY
-  //if the A key
-  if ((input_data.flags & J_A) &&
-      (input_data.aFrames == 0)){
-    //then go to the next dialog excerpt
-    dialogScreen_data.dialogNum++;
-    //if we have shown all the dialog pieces, then play the game
-    if (dialogScreen_data.dialogNum == DIALOG_LENGTH){
-      screen_data.state = GAME;
-    } else {
-      dialogEntry = &(dialog[dialogScreen_data.dialogNum]);
-      showDialog(dialogEntry);
-    }
-  } 
-#else
 
   //if the A key
   if ((input_data.flags & J_A) &&
       (input_data.aFrames == 0)){
+#ifndef SHOW_MEMORY
     //if we have shown all of the text
     if (dialogEntry->text[dialogScreen_data.nextCharacter] == NULL){
+#endif
       //then go to the next dialog excerpt
       dialogScreen_data.dialogNum++;
+      dialogEntry++;
       //if we have shown all the dialog pieces, then play the game
-      if (dialogScreen_data.dialogNum == DIALOG_LENGTH){
-        screen_data.state = GAME;
+      if (dialogScreen_data.dialogNum == dialogSet[screen_data.state].count){
+        if (screen_data.state == DIALOG){
+          screen_data.state = GAME;
+        } else {
+          screen_data.state = START;
+        }
       } else {
-        dialogEntry = &(dialog[dialogScreen_data.dialogNum]);
         showDialog(dialogEntry);
       }
+#ifndef SHOW_MEMORY
     } 
     //otherwise display all the text
     else {
       while(printDialogChar(dialogEntry));
     }
+#endif
   } 
+#ifndef SHOW_MEMORY
   //if no key pressed, just handle the text/prompt output
   else {
     if (isPortraitDialogScreen()){

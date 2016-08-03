@@ -5,18 +5,19 @@
 #ifndef CUSTOM_FONT
 #define CUSTOM_FONT
 
-#define NUM_FONT_TILES 65
+#define NUM_FONT_TILES 66
 
 // adapted from gbdk/gbdk-lib/build/small/asxxxx/gb/f_italic.lst
 const unsigned char alpha_num_italic_font[] = {
   0x05, // 1+4 -> 128 char encoding, compressed
-  65, // 10 numbers, 26 lowercase letters, 26 uppercase, space, period, comma
+  66, // 10 numbers, 26 lowercase letters, 26 uppercase, 
+      // space, period, comma, exclamation
   // character mappings
   0, 0, 0, 0, 0, 0, 0, 0,
   0, 0, 0, 0, 0, 0, 0, 0,
   0, 0, 0, 0, 0, 0, 0, 0,
   0, 0, 0, 0, 0, 0, 0, 0,
-  0, 0, 0, 0, 0, 0, 0, 0, // actual space here
+  0, 65, 0, 0, 0, 0, 0, 0, // actual space here
   0, 0, 0, 0, 1, 0, 2, 0, // comma and period here
   3, 4, 5, 6, 7, 8, 9, 10,// numbers 0-7
   11,12,0, 0, 0, 0, 0, 0, // numbers 8-9
@@ -159,7 +160,9 @@ const unsigned char alpha_num_italic_font[] = {
   //y
   0x00, 0x00, 0x00, 0x22, 0x22, 0x1C, 0x04, 0x78, 
   //z
-  0x00, 0x00, 0x00, 0x3E, 0x04, 0x18, 0x20, 0x7C 
+  0x00, 0x00, 0x00, 0x3E, 0x04, 0x18, 0x20, 0x7C,
+  //!
+  0x00, 0x08, 0x08, 0x08, 0x10, 0x10, 0x00, 0x20
 };
 
 #endif

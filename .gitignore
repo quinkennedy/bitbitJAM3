@@ -5,6 +5,9 @@
 *.gb
 *.o
 *.pyc
+*.out
+*.map
+minimized-font.c
 
 # ignore active vagrant sessions
 .vagrant

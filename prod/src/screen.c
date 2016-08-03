@@ -9,8 +9,6 @@
 #include <gb/gb.h>
 #include "startScreen.c"
 #include "gameScreen.c"
-#include "winScreen.c"
-#include "loseScreen.c"
 #include "dialogScreen.c"
 //#include "controlScreen.c"
 
@@ -55,15 +53,15 @@ void screen_setup(){
   screen_updates[START] = startScreen_update;
   screen_updates[DIALOG] = dialogScreen_update;
   screen_updates[GAME] = gameScreen_update;
-  screen_updates[WIN] = winScreen_update;
-  screen_updates[LOSE] = loseScreen_update;
+  screen_updates[WIN] = dialogScreen_update;
+  screen_updates[LOSE] = dialogScreen_update;
 //  screen_updates[CONTROLS] = controlScreen_update;
 
   screen_enters[START] = startScreen_enter;
   screen_enters[DIALOG] = dialogScreen_enter;
   screen_enters[GAME] = gameScreen_enter;
-  screen_enters[WIN] = winScreen_enter;
-  screen_enters[LOSE] = loseScreen_enter;
+  screen_enters[WIN] = dialogScreen_enter;
+  screen_enters[LOSE] = dialogScreen_enter;
 //  screen_enters[CONTROLS] = controlScreen_enter;
 
   // initialize the first screen

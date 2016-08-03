@@ -13,7 +13,11 @@ obj/%.o: src/%.c
 %.gb: obj/%.o $(O_FILES)
 	$(CC) -o $@ $<
 
-all: clean $(ROM)
+all: font $(ROM)
+
+font: fontFilter/fontFilter.c src/tiles/custom-font.c
+	cc -o fontFilter/fontFilter.out fontFilter/fontFilter.c;
+	fontFilter/fontFilter.out > src/tiles/minimized-font.c;
 
 run:
 	mednafen $(ROM)
