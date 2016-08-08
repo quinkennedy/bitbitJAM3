@@ -18,6 +18,7 @@
 #include "include/player.h"
 
 //#define SHOW_MEMORY
+//#define SKIP_DIALOG
 
 void renderBackgroundSquare(UBYTE frame[], 
                             UBYTE start_x, UBYTE start_y, 
@@ -345,6 +346,9 @@ void dialogScreen_update(){
   //if the A key
   if ((input_data.flags & J_A) &&
       (input_data.aFrames == 0)){
+#ifdef SKIP_DIALOG
+    screen_data.state = GAME;
+#endif
 #ifndef SHOW_MEMORY
     //if we have shown all of the text
     if (dialogEntry->text[dialogScreen_data.nextCharacter] == NULL){
@@ -432,7 +436,7 @@ void dialogScreen_update(){
       }
     }
   }
-#endif
+#endif //SHOW_MEMORY
 }
 
-#endif
+#endif //pragma once

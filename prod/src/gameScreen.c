@@ -15,6 +15,8 @@
 #include <gb/gb.h>
 #include <rand.h>
 
+//#define SHOW_COUNTS
+
 void gameScreen_enter(){
   DISPLAY_OFF;
   SHOW_SPRITES;
@@ -33,13 +35,26 @@ void gameScreen_enter(){
   sound_init();
 
   DISPLAY_ON;
+#ifdef SHOW_COUNTS
+  SHOW_WIN;
+  move_win(7, 100);
+#endif
 }
 
 void gameScreen_update(){
+#ifdef SHOW_COUNTS
+  UBYTE i;
+#endif
   player_update();
   npc_update();
   background_update();
   sound_update();
+
+#ifdef SHOW_COUNTS
+  for(i = 0; i < 4; i++){
+    set_win_tiles(i, 0, 1, 1, npc_counts + i);
+  }
+#endif
 }
 
-#endif
+#endif //pragma once

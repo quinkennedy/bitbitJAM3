@@ -56,7 +56,7 @@ void createNPC(UBYTE index, EntityType type){
   fixed r;
   UBYTE spriteIndex = (index + 1) << 1;
   EntityData *npc = &(npc_data[index]);
-  npc_counts[type]++;
+  npc_counts[npc->type]++;
 
   //TODO: figure out why this doesn't work??!?
   //npc->type = type;
@@ -82,7 +82,7 @@ void createNPC(UBYTE index, EntityType type){
   //make sure sprite is in front of background
   set_sprite_prop(spriteIndex, 0);
   set_sprite_prop(spriteIndex + 1, 0);
-  tileSprite(spriteIndex, entity_tiles_ref[type][0], type);
+  tileSprite(spriteIndex, entity_tiles_ref[npc->type][0], npc->type);
   placeSprite(spriteIndex, npc);
 
   //last 4 for randomizing animation start point (nice-to-have)
@@ -146,11 +146,11 @@ void npc_update(){
         //now one fewer skin cell
         npc_counts[SKIN]--;
         //if that was the last skin cell, start the endgame!
-        if (npc_counts[SKIN] == 0){
+        if (!npc_counts[SKIN]){
           npc_data[i].type = NEURON;
           //force it to another position
           //TODO: beware, this could mess some stuff up
-          npc_data[i].position.z = i % 4;
+          npc_data[i].position.z = i & 3;
           if (npc_data[i].position.z == player_data.position.z){
             npc_data[i].position.z++;
           }

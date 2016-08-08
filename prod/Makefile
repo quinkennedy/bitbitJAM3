@@ -1,5 +1,5 @@
 AS=lcc
-CC=lcc -Wa-l -Wl-m
+CC=lcc
 ROM=HerSovereignVirus.gb
 C_FILES=$(wildcard src/*.c)
 O_FILES=$(addprefix obj/,$(notdir $(C_FILES:.c=.o)))
@@ -13,7 +13,7 @@ obj/%.o: src/%.c
 %.gb: obj/%.o $(O_FILES)
 	$(CC) -o $@ $<
 
-all: font $(ROM)
+all: clean font $(ROM)
 
 font: fontFilter/fontFilter.c src/tiles/custom-font.c
 	cc -o fontFilter/fontFilter.out fontFilter/fontFilter.c;
