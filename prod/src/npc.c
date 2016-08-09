@@ -91,6 +91,19 @@ void createNPC(UBYTE index, EntityType type){
   npc_setVisibility(npc, spriteIndex);
 }
 
+void loadNPCSpriteData(){
+  UBYTE i;
+  for(i = 0; i != entity_anim_frames[VIRUS]; i++){
+    //load sprite
+    set_sprite_data((i << 1), 1, sprite_tile_data + (i << 4));
+    //load empty (white) bottom frame
+    set_sprite_data((i << 1) + 1, 1, white_tile);
+  }
+  set_sprite_data(entity_anim_frames[VIRUS] << 1, 
+                  SPRITE_DATA_SIZE - (entity_anim_frames[VIRUS] << 1), 
+                  sprite_tile_data + (entity_anim_frames[VIRUS] << 4));
+}
+
 void npc_init(){
   UBYTE i;
 

@@ -299,6 +299,10 @@ void dialogScreen_enter(){
   DISPLAY_OFF;
   SPRITES_8x16;
 
+  // load in-game sprites first, so un-used end sprites will be overwritten
+  //set_sprite_data(0, SPRITE_DATA_SIZE - (5 << 2) - (7 << 2), sprite_tile_data);
+  loadNPCSpriteData();
+
   // load dkgrey as background tile 0
   set_bkg_data(0, 1, dialog_data + (DIALOG_DKGREY << 4));
   // load dialog background data
@@ -309,8 +313,6 @@ void dialogScreen_enter(){
   color(WHITE, DKGREY, SOLID);
   font = font_load(minimized_font);
   font_set(font);
-  // load in-game sprites
-  set_sprite_data(0, SPRITE_DATA_SIZE - (5 << 2) - (7 << 2), sprite_tile_data);
   
   //move all sprites offscreen
   spriteIndex = 0;

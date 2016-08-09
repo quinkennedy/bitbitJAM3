@@ -21,5 +21,6 @@ void npc_update();
 void placeSprite(UBYTE index, EntityData *entity);
 void tileSprite(UBYTE index, const unsigned char tile, EntityType type);
 void npc_playerChangedLayer();
+void loadNPCSpriteData();
 
 #endif

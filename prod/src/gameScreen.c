@@ -23,7 +23,8 @@ void gameScreen_enter(){
   SPRITES_8x16;
 
   //load game sprites into VRAM
-  set_sprite_data(0x00, SPRITE_DATA_SIZE, sprite_tile_data);
+  //set_sprite_data(0x00, SPRITE_DATA_SIZE, sprite_tile_data);
+  loadNPCSpriteData();
   //set up the sprite registers to be different
   OBP0_REG = 0xE4U;//3-2-1-0
   OBP1_REG = 0x1BU;//0-1-2-3
