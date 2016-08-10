@@ -1,0 +1,5 @@
+immunity/immunity.png
+susceptible/susceptible.png
+neuron/neuron.png
+slice/slice.png
+susceptible/susceptible-death.png
