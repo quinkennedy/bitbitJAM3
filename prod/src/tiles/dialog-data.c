@@ -97,7 +97,7 @@ const PortraitDataInfo dialog_info[] = {
   // Princess
   { 256, 27, 2, 96, VIRUS},
   // Skeletor
-  { 0, 16, 1, 128, VIRUS}
+  { 0, 16, 1, 128, KING}
 };
 
 const unsigned char dialog_data[] = {

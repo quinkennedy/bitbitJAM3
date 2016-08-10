@@ -15,14 +15,14 @@
 
 void placeSprite(UBYTE index, EntityData *entity){
   move_sprite(index, entity->position.x.b.h, entity->position.y.b.h);
-  if (entity->type != VIRUS){
+  if (entity->type != VIRUS && entity->type != KING){
     move_sprite(index+1, entity->position.x.b.h + 8, entity->position.y.b.h);
   }
 }
 
 void tileSprite(UBYTE index, const unsigned char tile, EntityType type){
   set_sprite_tile(index, tile);
-  if (type != VIRUS){
+  if (type != VIRUS && type != KING){
     set_sprite_tile(index+1, tile + 2);
   }
 }
@@ -82,7 +82,8 @@ void createNPC(UBYTE index, EntityType type){
   //make sure sprite is in front of background
   set_sprite_prop(spriteIndex, 0);
   set_sprite_prop(spriteIndex + 1, 0);
-  tileSprite(spriteIndex, entity_tiles_ref[npc->type][0], npc->type);
+  //this is done inside npc_setVisibility, no need to do it twice right?
+  //tileSprite(spriteIndex, entity_tiles_ref[npc->type][0], npc->type);
   placeSprite(spriteIndex, npc);
 
   //last 4 for randomizing animation start point (nice-to-have)
@@ -92,16 +93,18 @@ void createNPC(UBYTE index, EntityType type){
 }
 
 void loadNPCSpriteData(){
-  UBYTE i;
-  for(i = 0; i != entity_anim_frames[VIRUS]; i++){
+  UINT16 i;
+  // 23 => num unique Virus frames + num unique King frames
+  for(i = 0; i != 23; i++){
     //load sprite
     set_sprite_data((i << 1), 1, sprite_tile_data + (i << 4));
     //load empty (white) bottom frame
-    set_sprite_data((i << 1) + 1, 1, white_tile);
+    set_sprite_data((i << 1) + 1, 1, sprite_tile_data + SPRITE_WHITE_INDEX);
   }
-  set_sprite_data(entity_anim_frames[VIRUS] << 1, 
-                  SPRITE_DATA_SIZE - (entity_anim_frames[VIRUS] << 1), 
-                  sprite_tile_data + (entity_anim_frames[VIRUS] << 4));
+  set_sprite_data(46, 
+                  LG_SPRITE_DATA_SIZE, 
+                  sprite_tile_data + (23 << 4));
+  //TODO: load virus death anim
 }
 
 void npc_init(){
@@ -204,7 +207,8 @@ void npc_update(){
               player_data.speed.y.b.h = player_data.speed.y.b.h | 0x80U;
             }
             npc->dying = 1;
-            npc->animFrame = 0;
+            //0th frame matches last frame to avoid flicker at end of animation
+            npc->animFrame = 1;
         }
       }
       placeSprite(j, npc);

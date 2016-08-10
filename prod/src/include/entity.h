@@ -16,7 +16,8 @@ typedef enum EntityType{
   IMMUNE = 0, 
   SKIN = 1, 
   NEURON = 2, 
-  VIRUS = 3
+  VIRUS = 3,
+  KING = 4
 } EntityType;
 
 typedef enum Visibility{
@@ -47,9 +48,9 @@ typedef struct EntityData{
   UBYTE dying;
 } EntityData;
 
-UBYTE entity_anim_frames[4] = {8, 11, 10, 12};
-const unsigned char* entity_tiles_ref[4] = 
-  {immunity_tiles, skin_tiles, neuron_tiles, virus_tiles};
+UBYTE entity_anim_frames[] = {8, 11, 10, 13, 13};
+const unsigned char* entity_tiles_ref[] = 
+  {immunity_tiles, skin_tiles, neuron_tiles, virus_tiles, king_tiles};
 
 void moveToward(DPAD_DIR direction, EntityData *data);
 void slowDown(EntityData *data);

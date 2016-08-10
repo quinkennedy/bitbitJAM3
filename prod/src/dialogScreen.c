@@ -323,6 +323,7 @@ void dialogScreen_enter(){
   //reset background palette and position
   BGP_REG = 0xE4U;
   SCX_REG = SCY_REG = 0;
+  OBP0_REG = 0x90U;
 
   dialogScreen_data.dialogNum = 0;
   showDialog(dialogs + dialogSet[screen_data.state].start);
