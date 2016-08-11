@@ -8,6 +8,7 @@
 *.out
 *.map
 minimized-font.c
+processed
 
 # ignore active vagrant sessions
 .vagrant

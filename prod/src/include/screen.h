@@ -9,7 +9,7 @@
 
 #define NUM_SCREENS 6
 typedef enum ScreenState{
-  DIALOG, WIN, LOSE, START, GAME
+  BOOT, DIALOG, WIN, LOSE, START, GAME
 } ScreenState;
 
 typedef struct ScreenData{

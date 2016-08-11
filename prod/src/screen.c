@@ -50,6 +50,7 @@ void screen_setup(){
   BGP_REG = OBP0_REG = OBP1_REG = 0xE4U;
 
   // Setup all function arrays for switch-less logic
+  screen_updates[BOOT] = dialogScreen_update;
   screen_updates[START] = startScreen_update;
   screen_updates[DIALOG] = dialogScreen_update;
   screen_updates[GAME] = gameScreen_update;
@@ -57,6 +58,7 @@ void screen_setup(){
   screen_updates[LOSE] = dialogScreen_update;
 //  screen_updates[CONTROLS] = controlScreen_update;
 
+  screen_enters[BOOT] = dialogScreen_enter;
   screen_enters[START] = startScreen_enter;
   screen_enters[DIALOG] = dialogScreen_enter;
   screen_enters[GAME] = gameScreen_enter;
@@ -65,7 +67,7 @@ void screen_setup(){
 //  screen_enters[CONTROLS] = controlScreen_enter;
 
   // initialize the first screen
-  screen_data.state = START;
+  screen_data.state = BOOT;//START;
   (*screen_enters[screen_data.state])();
 
   //turn on the display and interrupts now that we are done with setup

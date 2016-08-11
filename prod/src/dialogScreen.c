@@ -30,41 +30,41 @@ void renderBackgroundSquare(UBYTE frame[],
   //start with the bottom row
   x = start_x + w + 1;
   y = start_y + h + 1;
-  cell = frame[8] + NUM_FONT_TILES + 32 + 1;
+  cell = frame[8] + 255u - NUM_BG_TILES;
   set_bkg_tiles(start_x + w + 1, y, 1, 1, &cell);
   for(x--; x != start_x; x--){
-    cell = frame[7] + NUM_FONT_TILES + 32 + 1;
+    cell = frame[7] + 255u - NUM_BG_TILES;
     set_bkg_tiles(x, y, 1, 1, &cell);
   }
-  cell = frame[6] + NUM_FONT_TILES + 32 + 1;
+  cell = frame[6] + 255u - NUM_BG_TILES;
   set_bkg_tiles(x, y, 1, 1, &cell);
 
   //then all the middle rows
   for(y--; y != start_y; y--){
     x = start_x + w + 1;
-    cell = frame[5] + NUM_FONT_TILES + 32 + 1;
+    cell = frame[5] + 255u - NUM_BG_TILES;
     set_bkg_tiles(x, y, 1, 1, &cell);
     if (fill){
       for(x--; x != start_x; x--){
-        cell = frame[4] + NUM_FONT_TILES + 32 + 1;
+        cell = frame[4] + 255u - NUM_BG_TILES;
         set_bkg_tiles(x, y, 1, 1, &cell);
       }
     } else {
       x = start_x;
     }
-    cell = frame[3] + NUM_FONT_TILES + 32 + 1;
+    cell = frame[3] + 255u - NUM_BG_TILES;
     set_bkg_tiles(x, y, 1, 1, &cell);
   }
 
   //and finally the top row
   x = start_x + w + 1;
-  cell = frame[2] + NUM_FONT_TILES + 32 + 1;
+  cell = frame[2] + 255u - NUM_BG_TILES;
   set_bkg_tiles(x, y, 1, 1, &cell);
   for(x--; x != start_x; x--){
-    cell = frame[1] + NUM_FONT_TILES + 32 + 1;
+    cell = frame[1] + 255u - NUM_BG_TILES;
     set_bkg_tiles(x, y, 1, 1, &cell);
   }
-  cell = frame[0] + NUM_FONT_TILES + 32 + 1;
+  cell = frame[0] + 255u - NUM_BG_TILES;
   set_bkg_tiles(x, y, 1, 1, &cell);
 }
 
@@ -77,7 +77,7 @@ void renderBlackSquare(UBYTE start_x, UBYTE start_y,
   start_y--;
 
   //sprite number of black tile
-  cell = DIALOG_BLACK + NUM_FONT_TILES + 1 + 32;
+  cell = DIALOG_BLACK + 255u - NUM_BG_TILES;
 
   //set all cells to black
   //iterate backward
@@ -136,7 +136,7 @@ void showDialog(DialogEntry *dialog){
     HIDE_SPRITES;
     //set background to text-only mode
     y = 0;
-    cell = TEXT_SCREEN_TILES_START + NUM_FONT_TILES + 1 + 32;
+    cell = TEXT_SCREEN_TILES_START + 255u - NUM_BG_TILES;
     set_bkg_tiles(0, 0, 1, 1, &cell);
     cell++;
     set_bkg_tiles(1, 0, 1, 1, &cell);
@@ -191,7 +191,7 @@ void showDialog(DialogEntry *dialog){
       renderBlackSquare(14, 0, 6, 6);
     } else {
       set_bkg_data(
-          255u - 32u,
+          NUM_FONT_TILES + 1 + 32,
           dialog_info[dialog->rightPortrait].dataLength,
           dialog_data + dialog_info[dialog->rightPortrait].dataStart);
       if (dialog->speaker == RIGHT_SPEAKER){
@@ -203,7 +203,7 @@ void showDialog(DialogEntry *dialog){
       displayPortrait(15, 
                       1, 
                       dialog_info[dialog->rightPortrait].tileStart, 
-                      255u - 32u,
+                      NUM_FONT_TILES + 1 + 32,
                       dialog->speaker == RIGHT_SPEAKER && 
                         dialog_info[dialog->rightPortrait].frames > 1);
     }
@@ -296,7 +296,7 @@ UBYTE printDialogChar(DialogEntry *dialog){
 void dialogScreen_enter(){
   font_t font;
   UBYTE spriteIndex;
-  DISPLAY_OFF;
+  //DISPLAY_OFF;
   SPRITES_8x16;
 
   // load in-game sprites first, so un-used end sprites will be overwritten
@@ -306,7 +306,7 @@ void dialogScreen_enter(){
   // load dkgrey as background tile 0
   set_bkg_data(0, 1, dialog_data + (DIALOG_DKGREY << 4));
   // load dialog background data
-  set_bkg_data(NUM_FONT_TILES + 1 + 32, NUM_BG_TILES, dialog_data + (DIALOG_DATA_SIZE << 4) - (NUM_BG_TILES << 4));
+  set_bkg_data(255u - NUM_BG_TILES, NUM_BG_TILES, dialog_data + (DIALOG_DATA_SIZE << 4) - (NUM_BG_TILES << 4));
 
   //load the font we want to use
   font_init();
@@ -320,14 +320,15 @@ void dialogScreen_enter(){
     set_sprite_tile(spriteIndex, 0);
     move_sprite(spriteIndex, 0, 0);
   }
+
+  dialogScreen_data.dialogNum = 0;
+  showDialog(dialogs + dialogSet[screen_data.state].start);
+
   //reset background palette and position
   BGP_REG = 0xE4U;
   SCX_REG = SCY_REG = 0;
   OBP0_REG = 0x90U;
-
-  dialogScreen_data.dialogNum = 0;
-  showDialog(dialogs + dialogSet[screen_data.state].start);
-  DISPLAY_ON;
+  //DISPLAY_ON;
 }
 
 UBYTE isPortraitDialogScreen(){
@@ -400,33 +401,16 @@ void dialogScreen_update(){
         displayPortrait(15,
                         1,
                         dialog_info[dialogEntry->rightPortrait].tileStart,
-                        255u-32u,
+                        NUM_FONT_TILES + 1 + 32,
                         TRUE);
       }
-//      //animate the talking
-//      //set left portrait
-//      displayPortrait(1, 
-//                      1, 
-//                      dialog_info[dialog[dialogScreen_data.dialogNum].
-//                        leftPortrait].tileStart, 
-//                      NUM_FONT_TILES + 1,
-//                      dialog_info[dialog[dialogScreen_data.dialogNum].
-//                        leftPortrait].frames > 1);
-//      //set right portrait
-//      displayPortrait(15, 
-//                      1, 
-//                      dialog_info[dialog[dialogScreen_data.dialogNum].
-//                        rightPortrait].tileStart, 
-//                      255u - 32u,
-//                      dialog_info[dialog[dialogScreen_data.dialogNum].
-//                        rightPortrait].frames > 1);
     }
     
     //if we are no longer printing characters, animate the "next" prompt
     if(!printDialogChar(dialogEntry)){
 
       //blink the down arrow
-      cell = NEXT_TILES_START + NUM_FONT_TILES + 1 + 32;
+      cell = 255u - NUM_BG_TILES + NEXT_TILES_START;
       if (sys_time & 0x10){
         cell++;
       }

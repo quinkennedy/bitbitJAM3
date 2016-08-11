@@ -13,7 +13,7 @@
 
 void startScreen_blackBottom(){
   UBYTE x,y;
-  for(y=16; y != 18; y++){
+  for(y=16; y != 32; y++){
     for(x=0; x != 20; x++){
       set_bkg_tiles(x, y, 1, 1, &splash_black);
     }
@@ -46,7 +46,8 @@ void startScreen_enter(){
 
 void startScreen_update(){
   if (joypad() & J_START){
-    screen_data.state = DIALOG;
+    startScreen_blackBottom();
+    startScreen_data.showStart = 0;
   } else if (joypad() & J_SELECT){
     //screen_data.state = CONTROLS;
   } else {
@@ -75,6 +76,13 @@ void startScreen_update(){
           break;
       }
       startScreen_data.showStart--;
+    } else {
+      if (SCY_REG == 112){
+        BGP_REG = 0xFF;
+        screen_data.state = DIALOG;
+      } else {
+        SCY_REG += 2;
+      }
     }
   }
 }

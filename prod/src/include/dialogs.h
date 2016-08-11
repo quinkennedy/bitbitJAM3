@@ -32,6 +32,8 @@ typedef struct DialogSet{
 } DialogSet;
 
 DialogSet dialogSet[] = {
+  //Boot
+  {23, 1},
   //Intro
   {0, 21},
   //Win
@@ -194,7 +196,15 @@ You are deserving\n\
   I can only hope\n\
  a superior strain\n\
  will succeed you.",
-       NO_SPEAKER, NO_CHARACTER, NO_CHARACTER}
+       NO_SPEAKER, NO_CHARACTER, NO_CHARACTER},
+      //Boot
+      {"\
+a game by...\n\n\n\n\
+  David Frankel\n\n\
+  Party Skeleton\n\n\
+  Quin Kennedy\n\n\
+  Vivekanand Vimal",
+      NO_SPEAKER, NO_CHARACTER, NO_CHARACTER}
 };
 
 #endif
